@@ -57,17 +57,23 @@ describe('ItemFormComponent', () => {
 
     it('should emit saved with correct payload on valid submit', () => {
       let emitted: ItemFormPayload | undefined;
-      component.saved.subscribe(p => (emitted = p));
+      component.saved.subscribe((p) => (emitted = p));
 
       component.form.patchValue({ name: 'Bread', amount: '1 loaf', price: 35, currency: 'EUR' });
       component.submit();
 
-      expect(emitted).toEqual({ name: 'Bread', amount: '1 loaf', price: 35, currency: 'EUR', bought: false });
+      expect(emitted).toEqual({
+        name: 'Bread',
+        amount: '1 loaf',
+        price: 35,
+        currency: 'EUR',
+        bought: false,
+      });
     });
 
     it('should treat empty price input as null in the payload', () => {
       let emitted: ItemFormPayload | undefined;
-      component.saved.subscribe(p => (emitted = p));
+      component.saved.subscribe((p) => (emitted = p));
       component.form.patchValue({ name: 'Eggs', price: null });
       component.submit();
       expect(emitted?.price).toBeNull();
@@ -105,17 +111,23 @@ describe('ItemFormComponent', () => {
 
     it('should preserve the bought flag from the existing item in the payload', () => {
       let emitted: ItemFormPayload | undefined;
-      component.saved.subscribe(p => (emitted = p));
+      component.saved.subscribe((p) => (emitted = p));
       component.submit();
       expect(emitted?.bought).toBeFalse();
     });
 
     it('should emit updated values on submit', () => {
       let emitted: ItemFormPayload | undefined;
-      component.saved.subscribe(p => (emitted = p));
+      component.saved.subscribe((p) => (emitted = p));
       component.form.patchValue({ name: 'Whole Milk', amount: '1L', price: 55, currency: 'USD' });
       component.submit();
-      expect(emitted).toEqual({ name: 'Whole Milk', amount: '1L', price: 55, currency: 'USD', bought: false });
+      expect(emitted).toEqual({
+        name: 'Whole Milk',
+        amount: '1L',
+        price: 55,
+        currency: 'USD',
+        bought: false,
+      });
     });
   });
 

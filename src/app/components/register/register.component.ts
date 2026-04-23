@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -23,17 +23,21 @@ export class RegisterComponent {
   });
 
   submit() {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.isLoading.set(true);
     this.error.set(null);
-    this.auth.register(
-      this.form.value.name!,
-      this.form.value.email!,
-      this.form.value.password!,
-    ).subscribe({
-      next: () => this.router.navigate(['/']),
-      error: (e: Error) => { this.error.set(e.message); this.isLoading.set(false); },
-    });
+    this.auth
+      .register(this.form.value.name!, this.form.value.email!, this.form.value.password!)
+      .subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (e: Error) => {
+          this.error.set(e.message);
+          this.isLoading.set(false);
+        },
+      });
   }
 
   fieldInvalid(name: string) {

@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -23,12 +22,18 @@ export class LoginComponent {
   });
 
   submit() {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.isLoading.set(true);
     this.error.set(null);
     this.auth.login(this.form.value.email!, this.form.value.password!).subscribe({
       next: () => this.router.navigate(['/']),
-      error: (e: Error) => { this.error.set(e.message); this.isLoading.set(false); },
+      error: (e: Error) => {
+        this.error.set(e.message);
+        this.isLoading.set(false);
+      },
     });
   }
 

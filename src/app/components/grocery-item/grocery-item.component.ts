@@ -4,7 +4,7 @@ import { CURRENCY_SYMBOLS, GroceryItem } from '../../models/grocery-item.model';
 @Component({
   selector: 'app-grocery-item',
   templateUrl: './grocery-item.component.html',
-  styleUrl: './grocery-item.component.scss'
+  styleUrl: './grocery-item.component.scss',
 })
 export class GroceryItemComponent {
   item = input.required<GroceryItem>();
@@ -14,7 +14,7 @@ export class GroceryItemComponent {
 
   formattedPrice = computed(() => {
     const { price, currency } = this.item();
-    if (price === null || price === undefined) return null;
+    if (price == null) return null;
     const symbol = CURRENCY_SYMBOLS[currency] ?? currency;
     return `${symbol}${price.toFixed(2)}`;
   });

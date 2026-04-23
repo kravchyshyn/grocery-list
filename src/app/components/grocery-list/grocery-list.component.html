@@ -1,10 +1,17 @@
 <div class="page">
   <nav class="topbar">
     <span class="topbar-brand">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 0 1-8 0"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
       Grocery List
     </span>
@@ -12,7 +19,7 @@
     <div class="topbar-user">
       @if (isGuest()) {
         <span class="user-badge user-badge--guest">Guest</span>
-        <button class="btn btn-primary btn-sm" (click)="signUp()">Sign up</button>
+        <a class="btn btn-primary btn-sm" routerLink="/register">Sign up</a>
         <button class="btn btn-secondary btn-sm" (click)="logout()">Exit</button>
       } @else {
         <span class="user-badge">{{ currentUser()?.name }}</span>
@@ -22,40 +29,108 @@
   </nav>
 
   <div class="list-container">
+    @if (isGuest()) {
+      <div class="guest-banner">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="16"
+          height="16">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        You're browsing as a guest — this list is shared with all guests.
+        <a routerLink="/register">Create an account</a>
+        for your own private list.
+        <button class="btn btn-secondary btn-sm seed-btn" (click)="generateTestItems()">Generate 20 items</button>
+      </div>
+    }
+
     <header class="list-header">
       <div class="list-header-top">
         <div>
           <h1 class="list-title">
-            @if (isGuest()) { Shared List } @else { My List }
+            @if (isGuest()) {
+              Shared List
+            } @else {
+              My List
+            }
           </h1>
           @if (totalCount() > 0) {
             <p class="list-subtitle">{{ boughtCount() }} / {{ totalCount() }} items bought</p>
           }
         </div>
-        <button class="btn btn-primary" (click)="openAddForm()" [disabled]="formMode() === 'add'">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-          Add Item
-        </button>
+        <div class="header-actions">
+          @if (totalCount() > 0) {
+            <button class="btn btn-secondary" (click)="removeAllItems()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="16"
+                height="16">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+              </svg>
+              Remove all
+            </button>
+          }
+          <button class="btn btn-primary" (click)="openAddForm()" [disabled]="formMode() === 'add'">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              width="16"
+              height="16">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Add Item
+          </button>
+        </div>
       </div>
 
       @if (totalCount() > 0) {
-        <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="boughtCount()" [attr.aria-valuemax]="totalCount()">
-          <div class="progress-bar-fill" [style.width.%]="totalCount() > 0 ? (boughtCount() / totalCount()) * 100 : 0"></div>
+        <div
+          class="progress-bar"
+          role="progressbar"
+          [attr.aria-valuenow]="boughtCount()"
+          [attr.aria-valuemax]="totalCount()">
+          <div
+            class="progress-bar-fill"
+            [style.width.%]="totalCount() > 0 ? (boughtCount() / totalCount()) * 100 : 0"></div>
+        </div>
+      }
+
+      @if (totals().length > 0) {
+        <div class="totals-row">
+          <span class="totals-label">Total spent</span>
+          <span class="totals-value">
+            @for (t of totals(); track t.label; let last = $last) {
+              {{ t.label }}
+              @if (!last) {
+                &nbsp;·&nbsp;
+              }
+            }
+          </span>
         </div>
       }
     </header>
-
-    @if (isGuest()) {
-      <div class="guest-banner">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        You're browsing as a guest — this list is shared with all guests.
-        <a routerLink="/register">Create an account</a> for your own private list.
-      </div>
-    }
 
     @if (error()) {
       <div class="alert alert-error" role="alert">
@@ -65,11 +140,7 @@
     }
 
     @if (formMode() === 'add') {
-      <app-item-form
-        [editItem]="null"
-        (saved)="saveItem($event)"
-        (cancelled)="closeForm()"
-      />
+      <app-item-form [editItem]="null" (saved)="saveItem($event)" (cancelled)="closeForm()" />
     }
 
     @if (isLoading()) {
@@ -79,10 +150,17 @@
       </div>
     } @else if (items().length === 0 && !formMode()) {
       <div class="empty-state">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
         </svg>
         <p>Your grocery list is empty.</p>
         <button class="btn btn-primary" (click)="openAddForm()">Add your first item</button>
@@ -92,18 +170,13 @@
         @for (item of pagedItems(); track item.id) {
           <li>
             @if (formMode() === 'edit' && editingItem()?.id === item.id) {
-              <app-item-form
-                [editItem]="editingItem()"
-                (saved)="saveItem($event)"
-                (cancelled)="closeForm()"
-              />
+              <app-item-form [editItem]="editingItem()" (saved)="saveItem($event)" (cancelled)="closeForm()" />
             } @else {
               <app-grocery-item
                 [item]="item"
                 (toggled)="toggleBought($event)"
                 (editRequested)="openEditForm($event)"
-                (deleteRequested)="deleteItem($event)"
-              />
+                (deleteRequested)="deleteItem($event)" />
             }
           </li>
         }
@@ -111,29 +184,44 @@
 
       @if (totalPages() > 1) {
         <nav class="pagination" aria-label="Pagination">
-          <button
-            class="page-btn"
-            (click)="prevPage()"
-            [disabled]="currentPage() === 1"
-            aria-label="Previous page"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-              <polyline points="15 18 9 12 15 6"/>
+          <button class="page-btn" (click)="prevPage()" [disabled]="currentPage() === 1" aria-label="Previous page">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              width="16"
+              height="16">
+              <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
 
           <span class="page-info">
-            Page <strong>{{ currentPage() }}</strong> of <strong>{{ totalPages() }}</strong>
+            Page
+            <strong>{{ currentPage() }}</strong>
+            of
+            <strong>{{ totalPages() }}</strong>
           </span>
 
           <button
             class="page-btn"
             (click)="nextPage()"
             [disabled]="currentPage() === totalPages()"
-            aria-label="Next page"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-              <polyline points="9 18 15 12 9 6"/>
+            aria-label="Next page">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              width="16"
+              height="16">
+              <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
         </nav>
