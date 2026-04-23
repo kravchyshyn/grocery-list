@@ -16,11 +16,11 @@ export class GroceryService {
     return this.http.post<GroceryItem>(this.apiUrl, payload);
   }
 
-  updateItem(id: number, changes: Partial<GroceryItemPayload>): Observable<GroceryItem> {
+  updateItem(id: string | number, changes: Partial<GroceryItemPayload>): Observable<GroceryItem> {
     return this.http.patch<GroceryItem>(`${this.apiUrl}/${id}`, changes);
   }
 
-  deleteItem(id: number): Observable<void> {
+  deleteItem(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

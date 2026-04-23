@@ -6,9 +6,14 @@
 
   <div class="item-body">
     <span class="item-name">{{ item().name }}</span>
-    @if (item().amount) {
-      <span class="item-amount">{{ item().amount }}</span>
-    }
+    <div class="item-chips">
+      @if (item().amount) {
+        <span class="chip chip--amount">{{ item().amount }}</span>
+      }
+      @if (formattedPrice()) {
+        <span class="chip chip--price">{{ formattedPrice() }}</span>
+      }
+    </div>
   </div>
 
   <div class="item-actions">
