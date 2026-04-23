@@ -109,14 +109,14 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   padding: 0.75rem 1rem;
-  background: rgba(218, 55, 80, 0.06);
-  border: 1px solid rgba(218, 55, 80, 0.15);
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.85rem;
   color: var(--text-secondary);
   margin-bottom: 1rem;
 
-  svg { flex-shrink: 0; color: var(--accent); }
+  svg { flex-shrink: 0; color: var(--text-muted); }
 
   a {
     color: var(--accent);
@@ -138,9 +138,9 @@
   margin-bottom: 1rem;
 
   &-error {
-    background: rgba(218, 55, 80, 0.08);
-    color: var(--accent);
-    border: 1px solid rgba(218, 55, 80, 0.2);
+    background: rgba(220, 38, 38, 0.07);
+    color: var(--danger);
+    border: 1px solid rgba(220, 38, 38, 0.18);
   }
 }
 
@@ -187,6 +187,49 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* ── Pagination ─────────────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &:not(:disabled):hover {
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.page-info {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+
+  strong { color: var(--text-primary); }
 }
 
 /* ── Empty state ────────────────────────────────────── */

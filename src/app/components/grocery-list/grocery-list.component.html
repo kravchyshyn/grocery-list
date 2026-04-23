@@ -12,7 +12,7 @@
     <div class="topbar-user">
       @if (isGuest()) {
         <span class="user-badge user-badge--guest">Guest</span>
-        <a routerLink="/register" class="btn btn-primary btn-sm">Sign up</a>
+        <button class="btn btn-primary btn-sm" (click)="signUp()">Sign up</button>
         <button class="btn btn-secondary btn-sm" (click)="logout()">Exit</button>
       } @else {
         <span class="user-badge">{{ currentUser()?.name }}</span>
@@ -89,7 +89,7 @@
       </div>
     } @else {
       <ul class="item-list" aria-label="Grocery items">
-        @for (item of items(); track item.id) {
+        @for (item of pagedItems(); track item.id) {
           <li>
             @if (formMode() === 'edit' && editingItem()?.id === item.id) {
               <app-item-form
@@ -108,6 +108,36 @@
           </li>
         }
       </ul>
+
+      @if (totalPages() > 1) {
+        <nav class="pagination" aria-label="Pagination">
+          <button
+            class="page-btn"
+            (click)="prevPage()"
+            [disabled]="currentPage() === 1"
+            aria-label="Previous page"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+
+          <span class="page-info">
+            Page <strong>{{ currentPage() }}</strong> of <strong>{{ totalPages() }}</strong>
+          </span>
+
+          <button
+            class="page-btn"
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+            aria-label="Next page"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </nav>
+      }
     }
   </div>
 </div>
