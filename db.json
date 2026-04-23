@@ -1,30 +1,81 @@
 {
+  "users": [
+    {
+      "id": "guest",
+      "name": "Guest",
+      "email": "",
+      "password": ""
+    },
+    {
+      "name": "Vitalii",
+      "email": "vitalik1991ua@gmail.com",
+      "password": "Westcool777",
+      "id": "yUYoRYym1ZE"
+    }
+  ],
   "items": [
     {
       "id": "1",
       "name": "Milk",
       "amount": "2L",
-      "bought": false,
-      "price": 100,
-      "currency": "UAH"
+      "price": 48,
+      "currency": "UAH",
+      "bought": true,
+      "userId": "guest"
     },
     {
       "id": "2",
       "name": "Eggs",
       "amount": "12 pcs",
-      "bought": false
+      "price": null,
+      "currency": "UAH",
+      "bought": true,
+      "userId": "guest"
     },
     {
       "id": "3",
       "name": "Bread",
       "amount": "1 loaf",
-      "bought": false
+      "price": null,
+      "currency": "UAH",
+      "bought": true,
+      "userId": "guest"
     },
     {
       "id": "4",
       "name": "Butter",
-      "amount": "2000",
-      "bought": false
+      "amount": "200g",
+      "price": 120,
+      "currency": "UAH",
+      "bought": true,
+      "userId": "guest"
+    },
+    {
+      "name": "new item",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "ifaF7743oy4"
+    },
+    {
+      "name": "apple",
+      "amount": "1kg",
+      "price": 1000,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "yUYoRYym1ZE",
+      "id": "qlUSpkt6Jds"
+    },
+    {
+      "name": "kiwi",
+      "amount": "2kg",
+      "price": 1000,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "yUYoRYym1ZE",
+      "id": "FRXbbXXZz7Y"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -1,6 +1,6 @@
 import { Component, input, output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Currency, GroceryItem, GroceryItemPayload } from '../../models/grocery-item.model';
+import { Currency, GroceryItem, ItemFormPayload } from '../../models/grocery-item.model';
 
 @Component({
   selector: 'app-item-form',
@@ -10,7 +10,7 @@ import { Currency, GroceryItem, GroceryItemPayload } from '../../models/grocery-
 })
 export class ItemFormComponent implements OnInit {
   editItem = input<GroceryItem | null>(null);
-  saved = output<GroceryItemPayload>();
+  saved = output<ItemFormPayload>();
   cancelled = output<void>();
 
   readonly currencies: Currency[] = ['UAH', 'USD', 'EUR'];

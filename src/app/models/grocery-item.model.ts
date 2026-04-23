@@ -8,6 +8,7 @@ export const CURRENCY_SYMBOLS: Record<Currency, string> = {
 
 export interface GroceryItem {
   id: string | number;
+  userId: string;
   name: string;
   amount: string;
   price: number | null;
@@ -15,4 +16,8 @@ export interface GroceryItem {
   bought: boolean;
 }
 
+/** Full payload sent to the API (no id) */
 export type GroceryItemPayload = Omit<GroceryItem, 'id'>;
+
+/** What the item form emits — no id or userId (list adds those) */
+export type ItemFormPayload = Omit<GroceryItem, 'id' | 'userId'>;

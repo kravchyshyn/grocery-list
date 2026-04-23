@@ -8,8 +8,8 @@ export class GroceryService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3000/items';
 
-  getItems(): Observable<GroceryItem[]> {
-    return this.http.get<GroceryItem[]>(this.apiUrl);
+  getItems(userId: string): Observable<GroceryItem[]> {
+    return this.http.get<GroceryItem[]>(`${this.apiUrl}?userId=${userId}`);
   }
 
   addItem(payload: GroceryItemPayload): Observable<GroceryItem> {
