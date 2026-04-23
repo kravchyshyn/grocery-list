@@ -20,7 +20,7 @@
       "amount": "2L",
       "price": 48,
       "currency": "UAH",
-      "bought": true,
+      "bought": false,
       "userId": "guest"
     },
     {
@@ -29,7 +29,7 @@
       "amount": "12 pcs",
       "price": null,
       "currency": "UAH",
-      "bought": true,
+      "bought": false,
       "userId": "guest"
     },
     {
@@ -38,26 +38,8 @@
       "amount": "1 loaf",
       "price": null,
       "currency": "UAH",
-      "bought": true,
-      "userId": "guest"
-    },
-    {
-      "id": "4",
-      "name": "Butter",
-      "amount": "200g",
-      "price": 120,
-      "currency": "UAH",
-      "bought": true,
-      "userId": "guest"
-    },
-    {
-      "name": "new item",
-      "amount": "",
-      "price": null,
-      "currency": "UAH",
       "bought": false,
-      "userId": "guest",
-      "id": "ifaF7743oy4"
+      "userId": "guest"
     },
     {
       "name": "apple",

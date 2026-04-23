@@ -53,7 +53,7 @@
 
     &:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(218, 55, 80, 0.12);
+      box-shadow: 0 0 0 3px rgba(82, 82, 82, 0.12);
     }
   }
 
@@ -75,7 +75,7 @@
 
   &:focus-within {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(218, 55, 80, 0.12);
+    box-shadow: 0 0 0 3px rgba(82, 82, 82, 0.12);
   }
 }
 

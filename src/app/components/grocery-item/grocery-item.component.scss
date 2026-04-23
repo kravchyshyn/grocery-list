@@ -75,7 +75,7 @@ input[type='checkbox']:checked + .checkmark {
 }
 
 input[type='checkbox']:focus-visible + .checkmark {
-  box-shadow: 0 0 0 3px rgba(218, 55, 80, 0.2);
+  box-shadow: 0 0 0 3px rgba(82, 82, 82, 0.2);
 }
 
 .item-body {
@@ -116,8 +116,9 @@ input[type='checkbox']:focus-visible + .checkmark {
   }
 
   &--price {
-    color: var(--accent);
-    background: rgba(218, 55, 80, 0.08);
+    color: var(--text-secondary);
+    background: var(--chip-bg);
+    border: 1px solid var(--border);
   }
 }
 
