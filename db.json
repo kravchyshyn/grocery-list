@@ -1,8 +1,31 @@
 {
   "items": [
-    { "id": 1, "name": "Milk", "amount": "2L", "bought": false },
-    { "id": 2, "name": "Eggs", "amount": "12 pcs", "bought": false },
-    { "id": 3, "name": "Bread", "amount": "1 loaf", "bought": true },
-    { "id": 4, "name": "Butter", "amount": "200g", "bought": false }
-  ]
+    {
+      "id": "1",
+      "name": "Milk",
+      "amount": "2L",
+      "bought": false,
+      "price": 100,
+      "currency": "UAH"
+    },
+    {
+      "id": "2",
+      "name": "Eggs",
+      "amount": "12 pcs",
+      "bought": false
+    },
+    {
+      "id": "3",
+      "name": "Bread",
+      "amount": "1 loaf",
+      "bought": false
+    },
+    {
+      "id": "4",
+      "name": "Butter",
+      "amount": "2000",
+      "bought": false
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

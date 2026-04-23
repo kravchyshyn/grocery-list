@@ -15,15 +15,40 @@
     }
   </div>
 
-  <div class="field">
-    <label for="amount">Amount</label>
-    <input
-      id="amount"
-      type="text"
-      formControlName="amount"
-      placeholder="e.g. 2kg, 3 pcs"
-      autocomplete="off"
-    />
+  <div class="fields-row">
+    <div class="field">
+      <label for="amount">Amount</label>
+      <input
+        id="amount"
+        type="text"
+        formControlName="amount"
+        placeholder="e.g. 2kg, 3 pcs"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="field">
+      <label for="price">Price</label>
+      <div class="price-input-group">
+        <select id="currency" formControlName="currency" class="currency-select" aria-label="Currency">
+          @for (c of currencies; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+        <input
+          id="price"
+          type="number"
+          formControlName="price"
+          placeholder="0.00"
+          min="0"
+          step="0.01"
+          class="price-input"
+        />
+      </div>
+      @if (priceInvalid) {
+        <span class="error">Price must be 0 or more</span>
+      }
+    </div>
   </div>
 
   <div class="form-actions">

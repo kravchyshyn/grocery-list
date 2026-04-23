@@ -1,17 +1,17 @@
-/* ── Design tokens ───────────────────────────────────── */
+/* ── Design tokens — Goji Labs color scheme ─────────── */
 :root {
-  --bg: #f8f9fb;
+  --bg: #f7f7f7;
   --surface: #ffffff;
-  --surface-hover: #f3f4f6;
-  --border: #e5e7eb;
-  --border-strong: #d1d5db;
-  --chip-bg: #f3f4f6;
-  --accent: #6366f1;
-  --accent-hover: #4f46e5;
-  --danger: #ef4444;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
+  --surface-hover: #edecec;
+  --border: #e3e1e1;
+  --border-strong: #c7c4c4;
+  --chip-bg: #edecec;
+  --accent: #da3750;
+  --accent-hover: #bf2f45;
+  --danger: #da3750;
+  --text-primary: #1f1e1e;
+  --text-secondary: #514f4f;
+  --text-muted: #827f7f;
 }
 
 /* ── Reset / base ────────────────────────────────────── */
@@ -47,7 +47,7 @@ html, body {
   outline: none;
 
   &:focus-visible {
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 0 3px rgba(218, 55, 80, 0.25);
   }
 
   &:disabled {
