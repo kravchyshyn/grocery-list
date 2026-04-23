@@ -1,0 +1,35 @@
+<form class="item-form" [formGroup]="form" (ngSubmit)="submit()">
+  <h3 class="form-title">{{ editItem() ? 'Edit Item' : 'Add Item' }}</h3>
+
+  <div class="field">
+    <label for="name">Item name <span class="required">*</span></label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      placeholder="e.g. Apples"
+      autocomplete="off"
+    />
+    @if (nameInvalid) {
+      <span class="error">Name is required</span>
+    }
+  </div>
+
+  <div class="field">
+    <label for="amount">Amount</label>
+    <input
+      id="amount"
+      type="text"
+      formControlName="amount"
+      placeholder="e.g. 2kg, 3 pcs"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary">
+      {{ editItem() ? 'Save changes' : 'Add to list' }}
+    </button>
+  </div>
+</form>
