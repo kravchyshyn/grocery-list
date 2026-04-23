@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal }      from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { GroceryItem, GroceryItemPayload, ItemFormPayload } from '../../models/grocery-item.model';
 import { GroceryService } from '../../services/grocery.service';
 import { AuthService } from '../../services/auth.service';
@@ -7,12 +7,11 @@ import { GroceryItemComponent } from '../grocery-item/grocery-item.component';
 import { ItemFormComponent } from '../item-form/item-form.component';
 
 type FormMode = 'add' | 'edit' | null;
-
 const PAGE_SIZE = 20;
 
 @Component({
   selector: 'app-grocery-list',
-  imports: [GroceryItemComponent, ItemFormComponent],
+  imports: [GroceryItemComponent, ItemFormComponent, RouterLink],
   templateUrl: './grocery-list.component.html',
   styleUrl: './grocery-list.component.scss'
 })
