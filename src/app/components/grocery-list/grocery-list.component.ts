@@ -129,7 +129,7 @@ export class GroceryListComponent implements OnInit {
     });
   }
 
-  deleteItem(id: string | number) {
+  deleteItem(id: string) {
     this.groceryService.deleteItem(id).subscribe({
       next: () => {
         this.items.update((list) => list.filter((i) => i.id !== id));

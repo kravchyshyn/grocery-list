@@ -6,9 +6,10 @@ import { GroceryListComponent } from './grocery-list.component';
 import { GroceryService } from '../../services/grocery.service';
 import { AuthService } from '../../services/auth.service';
 import { GroceryItem, ItemFormPayload } from '../../models/grocery-item.model';
-import { GUEST_USER, User } from '../../models/user.model';
+import { User } from '../../models/user.model';
 
-const mockUser: User = { id: 'u1', name: 'Alice', email: 'a@test.com', password: '' };
+const mockUser: User = { id: 'u1', name: 'Alice', email: 'a@test.com', isAnonymous: false };
+const mockGuestUser: User = { id: 'guest-uid', name: 'Guest', email: null, isAnonymous: true };
 
 const makeItems = (n: number): GroceryItem[] =>
   Array.from({ length: n }, (_, i) => ({
@@ -263,7 +264,7 @@ describe('GroceryListComponent — guest mode', () => {
       'deleteItem',
     ]);
     grocerySpy.getItems.and.returnValue(of([]));
-    const authMock = createAuthMock(GUEST_USER, true);
+    const authMock = createAuthMock(mockGuestUser, true);
 
     await TestBed.configureTestingModule({
       imports: [GroceryListComponent],

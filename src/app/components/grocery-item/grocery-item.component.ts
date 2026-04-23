@@ -10,7 +10,7 @@ export class GroceryItemComponent {
   item = input.required<GroceryItem>();
   toggled = output<GroceryItem>();
   editRequested = output<GroceryItem>();
-  deleteRequested = output<string | number>();
+  deleteRequested = output<string>();
 
   formattedPrice = computed(() => {
     const { price, currency } = this.item();

@@ -1,108 +1,107 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import * as firestoreModule from 'firebase/firestore';
 import { GroceryService } from './grocery.service';
-import { GroceryItem } from '../models/grocery-item.model';
+import { GroceryItem, GroceryItemPayload } from '../models/grocery-item.model';
+
+const mockPayload: GroceryItemPayload = {
+  userId: 'u1',
+  name: 'Milk',
+  amount: '2L',
+  price: 48,
+  currency: 'UAH',
+  bought: false,
+};
+
+const mockItem: GroceryItem = { id: 'doc1', ...mockPayload };
+
+function makeSnap(items: GroceryItem[]) {
+  return {
+    docs: items.map((item) => ({
+      id: item.id,
+      data: () => {
+        const { id, ...rest } = item;
+        return rest;
+      },
+    })),
+  } as unknown as Awaited<ReturnType<typeof firestoreModule.getDocs>>;
+}
+
+function makeDocSnap(item: GroceryItem) {
+  return {
+    id: item.id,
+    data: () => {
+      const { id, ...rest } = item;
+      return rest;
+    },
+  } as unknown as Awaited<ReturnType<typeof firestoreModule.getDoc>>;
+}
 
 describe('GroceryService', () => {
   let service: GroceryService;
-  let httpMock: HttpTestingController;
-  const apiUrl = 'http://localhost:3000/items';
-
-  const mockItem: GroceryItem = {
-    id: '1',
-    userId: 'u1',
-    name: 'Milk',
-    amount: '2L',
-    price: 48,
-    currency: 'UAH',
-    bought: false,
-  };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()],
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(GroceryService);
-    httpMock = TestBed.inject(HttpTestingController);
   });
-
-  afterEach(() => httpMock.verify());
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
   describe('getItems', () => {
-    it('should GET items filtered by userId', () => {
-      let result: GroceryItem[] | undefined;
-      service.getItems('u1').subscribe((items) => (result = items));
+    it('should return items filtered by userId', (done) => {
+      spyOn(firestoreModule, 'getDocs').and.returnValue(Promise.resolve(makeSnap([mockItem])));
 
-      const req = httpMock.expectOne(`${apiUrl}?userId=u1`);
-      expect(req.request.method).toBe('GET');
-      req.flush([mockItem]);
+      service.getItems('u1').subscribe((items) => {
+        expect(items).toEqual([mockItem]);
+        done();
+      });
+    });
 
-      expect(result).toEqual([mockItem]);
+    it('should return an empty array when no items exist', (done) => {
+      spyOn(firestoreModule, 'getDocs').and.returnValue(Promise.resolve(makeSnap([])));
+
+      service.getItems('u1').subscribe((items) => {
+        expect(items).toEqual([]);
+        done();
+      });
     });
   });
 
   describe('addItem', () => {
-    it('should POST and return the created item', () => {
-      const payload = {
-        userId: 'u1',
-        name: 'Bread',
-        amount: '1 loaf',
-        price: null,
-        currency: 'UAH' as const,
-        bought: false,
-      };
-      const created: GroceryItem = { id: '2', ...payload };
-      let result: GroceryItem | undefined;
+    it('should add a document and return the item with its new id', (done) => {
+      spyOn(firestoreModule, 'addDoc').and.returnValue(
+        Promise.resolve({ id: 'newId' } as unknown as firestoreModule.DocumentReference),
+      );
 
-      service.addItem(payload).subscribe((item) => (result = item));
-
-      const req = httpMock.expectOne(apiUrl);
-      expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual(payload);
-      req.flush(created);
-
-      expect(result).toEqual(created);
+      service.addItem(mockPayload).subscribe((item) => {
+        expect(item).toEqual({ id: 'newId', ...mockPayload });
+        done();
+      });
     });
   });
 
   describe('updateItem', () => {
-    it('should PATCH and return the updated item', () => {
+    it('should update the document and return the refreshed item', (done) => {
       const updated: GroceryItem = { ...mockItem, bought: true };
-      let result: GroceryItem | undefined;
+      spyOn(firestoreModule, 'updateDoc').and.returnValue(Promise.resolve());
+      spyOn(firestoreModule, 'getDoc').and.returnValue(Promise.resolve(makeDocSnap(updated)));
 
-      service.updateItem('1', { bought: true }).subscribe((item) => (result = item));
-
-      const req = httpMock.expectOne(`${apiUrl}/1`);
-      expect(req.request.method).toBe('PATCH');
-      expect(req.request.body).toEqual({ bought: true });
-      req.flush(updated);
-
-      expect(result).toEqual(updated);
-    });
-
-    it('should accept a numeric id in the URL', () => {
-      service.updateItem(42, { bought: false }).subscribe();
-      const req = httpMock.expectOne(`${apiUrl}/42`);
-      expect(req.request.url).toContain('/42');
-      req.flush(mockItem);
+      service.updateItem('doc1', { bought: true }).subscribe((item) => {
+        expect(item.bought).toBeTrue();
+        done();
+      });
     });
   });
 
   describe('deleteItem', () => {
-    it('should send DELETE request', () => {
-      let completed = false;
-      service.deleteItem('1').subscribe(() => (completed = true));
+    it('should delete the document', (done) => {
+      spyOn(firestoreModule, 'deleteDoc').and.returnValue(Promise.resolve());
 
-      const req = httpMock.expectOne(`${apiUrl}/1`);
-      expect(req.request.method).toBe('DELETE');
-      req.flush(null);
-
-      expect(completed).toBeTrue();
+      service.deleteItem('doc1').subscribe(() => {
+        expect(firestoreModule.deleteDoc).toHaveBeenCalled();
+        done();
+      });
     });
   });
 });

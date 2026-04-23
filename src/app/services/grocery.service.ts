@@ -1,26 +1,44 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { from, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { firebaseDb } from '../firebase';
 import { GroceryItem, GroceryItemPayload } from '../models/grocery-item.model';
 
 @Injectable({ providedIn: 'root' })
 export class GroceryService {
-  private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/items';
+  private col = collection(firebaseDb, 'items');
 
   getItems(userId: string): Observable<GroceryItem[]> {
-    return this.http.get<GroceryItem[]>(`${this.apiUrl}?userId=${userId}`);
+    const q = query(this.col, where('userId', '==', userId));
+    return from(getDocs(q)).pipe(
+      map((snap) => snap.docs.map((d) => ({ id: d.id, ...(d.data() as GroceryItemPayload) }))),
+    );
   }
 
   addItem(payload: GroceryItemPayload): Observable<GroceryItem> {
-    return this.http.post<GroceryItem>(this.apiUrl, payload);
+    return from(addDoc(this.col, payload)).pipe(map((ref) => ({ id: ref.id, ...payload })));
   }
 
-  updateItem(id: string | number, changes: Partial<GroceryItemPayload>): Observable<GroceryItem> {
-    return this.http.patch<GroceryItem>(`${this.apiUrl}/${id}`, changes);
+  updateItem(id: string, changes: Partial<GroceryItemPayload>): Observable<GroceryItem> {
+    const ref = doc(firebaseDb, 'items', id);
+    return from(updateDoc(ref, changes)).pipe(
+      switchMap(() => from(getDoc(ref))),
+      map((snap) => ({ id: snap.id, ...(snap.data() as GroceryItemPayload) })),
+    );
   }
 
-  deleteItem(id: string | number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteItem(id: string): Observable<void> {
+    return from(deleteDoc(doc(firebaseDb, 'items', id)));
   }
 }

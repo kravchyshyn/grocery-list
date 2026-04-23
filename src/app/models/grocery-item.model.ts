@@ -7,7 +7,7 @@ export const CURRENCY_SYMBOLS: Record<Currency, string> = {
 };
 
 export interface GroceryItem {
-  id: string | number;
+  id: string;
   userId: string;
   name: string;
   amount: string;

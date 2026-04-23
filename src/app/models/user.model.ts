@@ -1,13 +1,6 @@
 export interface User {
   id: string;
   name: string;
-  email: string;
-  password: string;
+  email: string | null;
+  isAnonymous: boolean;
 }
-
-export const GUEST_USER: User = {
-  id: 'guest',
-  name: 'Guest',
-  email: '',
-  password: '',
-};
