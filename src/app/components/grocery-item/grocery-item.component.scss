@@ -6,14 +6,12 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
 
   &:hover {
     background: var(--surface-hover);
-
-    .item-actions {
-      opacity: 1;
-    }
   }
 
   &--bought {
@@ -32,7 +30,7 @@
   cursor: pointer;
   flex-shrink: 0;
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     width: 0;
@@ -47,11 +45,13 @@
   border: 2px solid var(--border-strong);
   border-radius: 6px;
   background: var(--bg);
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     display: none;
     left: 5px;
@@ -65,7 +65,7 @@
   }
 }
 
-input[type='checkbox']:checked + .checkmark {
+input[type="checkbox"]:checked + .checkmark {
   background: var(--accent);
   border-color: var(--accent);
 
@@ -74,8 +74,8 @@ input[type='checkbox']:checked + .checkmark {
   }
 }
 
-input[type='checkbox']:focus-visible + .checkmark {
-  box-shadow: 0 0 0 3px rgba(82, 82, 82, 0.2);
+input[type="checkbox"]:focus-visible + .checkmark {
+  box-shadow: 0 0 0 3px rgba(26, 122, 60, 0.2);
 }
 
 .item-body {
@@ -88,23 +88,19 @@ input[type='checkbox']:focus-visible + .checkmark {
 }
 
 .item-name {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.15s, text-decoration 0.15s;
-}
-
-.item-chips {
-  display: flex;
-  gap: 0.375rem;
-  flex-wrap: wrap;
+  transition:
+    color 0.15s,
+    text-decoration 0.15s;
 }
 
 .chip {
-  font-size: 0.78rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   padding: 0.125rem 0.5rem;
   border-radius: 20px;
@@ -116,21 +112,22 @@ input[type='checkbox']:focus-visible + .checkmark {
   }
 
   &--price {
+    font-size: var(--text-base);
     color: var(--text-secondary);
     background: var(--chip-bg);
     border: 1px solid var(--border);
   }
 }
 
+.item-price {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 .item-actions {
   display: flex;
   gap: 0.25rem;
-  opacity: 0;
-  transition: opacity 0.15s;
-
-  @media (hover: none) {
-    opacity: 1;
-  }
+  flex-shrink: 0;
 }
 
 .icon-btn {
@@ -143,7 +140,9 @@ input[type='checkbox']:focus-visible + .checkmark {
   border-radius: 6px;
   cursor: pointer;
   background: transparent;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 
   svg {
     width: 16px;
@@ -152,11 +151,17 @@ input[type='checkbox']:focus-visible + .checkmark {
 
   &--edit {
     color: var(--text-secondary);
-    &:hover { background: var(--chip-bg); color: var(--accent); }
+    &:hover {
+      background: var(--chip-bg);
+      color: var(--accent);
+    }
   }
 
   &--delete {
     color: var(--text-secondary);
-    &:hover { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
   }
 }

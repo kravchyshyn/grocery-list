@@ -17,14 +17,14 @@
   height: 56px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 }
 
 .topbar-brand {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--text-primary);
 
@@ -42,7 +42,7 @@
 }
 
 .user-badge {
-  font-size: 0.825rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: var(--text-secondary);
   padding: 0.25rem 0.625rem;
@@ -75,15 +75,21 @@
   margin-bottom: 0.875rem;
 }
 
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .list-title {
-  font-size: 1.75rem;
+  font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 0.25rem;
 }
 
 .list-subtitle {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--text-muted);
   margin: 0;
 }
@@ -102,6 +108,30 @@
   transition: width 0.3s ease;
 }
 
+/* ── Totals ─────────────────────────────────────────── */
+.totals-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.totals-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.totals-value {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 /* ── Guest banner ───────────────────────────────────── */
 .guest-banner {
   display: flex;
@@ -112,17 +142,26 @@
   background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
   margin-bottom: 1rem;
 
-  svg { flex-shrink: 0; color: var(--text-muted); }
+  svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
 
   a {
     color: var(--accent);
     font-weight: 500;
     text-decoration: none;
-    &:hover { text-decoration: underline; }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .seed-btn {
+    margin-left: auto;
   }
 }
 
@@ -149,10 +188,12 @@
   border: none;
   cursor: pointer;
   color: inherit;
-  font-size: 1rem;
+  font-size: var(--text-md);
   padding: 0 0.25rem;
   opacity: 0.7;
-  &:hover { opacity: 1; }
+  &:hover {
+    opacity: 1;
+  }
 }
 
 /* ── Item list ──────────────────────────────────────── */
@@ -173,7 +214,7 @@
   gap: 0.75rem;
   padding: 3rem 0;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-base);
 }
 
 .spinner {
@@ -186,7 +227,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Pagination ─────────────────────────────────────── */
@@ -211,7 +254,10 @@
   background: var(--surface);
   cursor: pointer;
   color: var(--text-secondary);
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 
   &:not(:disabled):hover {
     background: var(--surface-hover);
@@ -226,10 +272,12 @@
 }
 
 .page-info {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--text-muted);
 
-  strong { color: var(--text-primary); }
+  strong {
+    color: var(--text-primary);
+  }
 }
 
 /* ── Empty state ────────────────────────────────────── */
@@ -242,6 +290,13 @@
   text-align: center;
   color: var(--text-muted);
 
-  svg { width: 56px; height: 56px; opacity: 0.4; }
-  p { margin: 0; font-size: 1rem; }
+  svg {
+    width: 56px;
+    height: 56px;
+    opacity: 0.4;
+  }
+  p {
+    margin: 0;
+    font-size: 1rem;
+  }
 }

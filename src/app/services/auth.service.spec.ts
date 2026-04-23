@@ -17,11 +17,7 @@ describe('AuthService', () => {
   beforeEach(() => {
     localStorage.clear();
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideRouter([]),
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
     });
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -48,11 +44,7 @@ describe('AuthService', () => {
     // Re-create service to trigger restoration
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideRouter([]),
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
     });
     const freshService = TestBed.inject(AuthService);
     expect(freshService.currentUser()).toEqual(mockUser);
@@ -63,9 +55,7 @@ describe('AuthService', () => {
     it('should set currentUser and persist to localStorage on success', () => {
       service.login('alice@test.com', 'secret').subscribe();
 
-      httpMock
-        .expectOne(`${apiUrl}?email=alice%40test.com&password=secret`)
-        .flush([mockUser]);
+      httpMock.expectOne(`${apiUrl}?email=alice%40test.com&password=secret`).flush([mockUser]);
 
       expect(service.currentUser()).toEqual(mockUser);
       expect(service.isLoggedIn()).toBeTrue();
@@ -75,9 +65,9 @@ describe('AuthService', () => {
 
     it('should throw with message when credentials are wrong', () => {
       let error: Error | undefined;
-      service.login('alice@test.com', 'wrong').subscribe({ error: e => (error = e) });
+      service.login('alice@test.com', 'wrong').subscribe({ error: (e) => (error = e) });
 
-      httpMock.expectOne(r => r.url.includes('/users')).flush([]);
+      httpMock.expectOne((r) => r.url.includes('/users')).flush([]);
 
       expect(error?.message).toBe('Invalid email or password.');
       expect(service.currentUser()).toBeNull();
@@ -91,16 +81,18 @@ describe('AuthService', () => {
       // First call: check email uniqueness
       httpMock.expectOne(`${apiUrl}?email=bob%40test.com`).flush([]);
       // Second call: create user
-      httpMock.expectOne(apiUrl).flush({ id: 'u2', name: 'Bob', email: 'bob@test.com', password: 'pass123' });
+      httpMock
+        .expectOne(apiUrl)
+        .flush({ id: 'u2', name: 'Bob', email: 'bob@test.com', password: 'pass123' });
 
       expect(service.currentUser()?.name).toBe('Bob');
     });
 
     it('should throw when email is already registered', () => {
       let error: Error | undefined;
-      service.register('Alice2', 'alice@test.com', 'pass').subscribe({ error: e => (error = e) });
+      service.register('Alice2', 'alice@test.com', 'pass').subscribe({ error: (e) => (error = e) });
 
-      httpMock.expectOne(r => r.url.includes('email=')).flush([mockUser]);
+      httpMock.expectOne((r) => r.url.includes('email=')).flush([mockUser]);
 
       expect(error?.message).toBe('An account with this email already exists.');
       expect(service.currentUser()).toBeNull();

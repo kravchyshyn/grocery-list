@@ -92,8 +92,9 @@ describe('GroceryItemComponent', () => {
 
   it('should emit toggled with the item when checkbox changes', () => {
     const spy = spyOn(component.toggled, 'emit');
-    el.querySelector<HTMLInputElement>('input[type="checkbox"]')!
-      .dispatchEvent(new Event('change'));
+    el.querySelector<HTMLInputElement>('input[type="checkbox"]')!.dispatchEvent(
+      new Event('change'),
+    );
     expect(spy).toHaveBeenCalledWith(baseItem);
   });
 

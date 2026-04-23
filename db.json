@@ -15,38 +15,11 @@
   ],
   "items": [
     {
-      "id": "1",
-      "name": "Milk",
-      "amount": "2L",
-      "price": 48,
-      "currency": "UAH",
-      "bought": false,
-      "userId": "guest"
-    },
-    {
-      "id": "2",
-      "name": "Eggs",
-      "amount": "12 pcs",
-      "price": null,
-      "currency": "UAH",
-      "bought": false,
-      "userId": "guest"
-    },
-    {
-      "id": "3",
-      "name": "Bread",
-      "amount": "1 loaf",
-      "price": null,
-      "currency": "UAH",
-      "bought": false,
-      "userId": "guest"
-    },
-    {
       "name": "apple",
       "amount": "1kg",
       "price": 1000,
       "currency": "UAH",
-      "bought": false,
+      "bought": true,
       "userId": "yUYoRYym1ZE",
       "id": "qlUSpkt6Jds"
     },
@@ -55,9 +28,531 @@
       "amount": "2kg",
       "price": 1000,
       "currency": "UAH",
-      "bought": false,
+      "bought": true,
       "userId": "yUYoRYym1ZE",
       "id": "FRXbbXXZz7Y"
+    },
+    {
+      "userId": "guest",
+      "name": "Milk #wlf6",
+      "amount": "1L",
+      "price": 128,
+      "currency": "UAH",
+      "bought": false,
+      "id": "_XKWyIHes_A"
+    },
+    {
+      "userId": "guest",
+      "name": "Bread #wlf6",
+      "amount": "1 loaf",
+      "price": 89,
+      "currency": "UAH",
+      "bought": false,
+      "id": "ZHHHc6dkXBc"
+    },
+    {
+      "userId": "guest",
+      "name": "Eggs #wlf6",
+      "amount": "12 pcs",
+      "price": 92,
+      "currency": "UAH",
+      "bought": false,
+      "id": "WPDvlrTYL6I"
+    },
+    {
+      "userId": "guest",
+      "name": "Butter #wlf6",
+      "amount": "200g",
+      "price": 136,
+      "currency": "USD",
+      "bought": false,
+      "id": "ebQ7QGX3pvE"
+    },
+    {
+      "userId": "guest",
+      "name": "Cheese #wlf6",
+      "amount": "500g",
+      "price": 76,
+      "currency": "EUR",
+      "bought": false,
+      "id": "hJk3y9jxsKc"
+    },
+    {
+      "userId": "guest",
+      "name": "Apples #wlf6",
+      "amount": "1 kg",
+      "price": 181,
+      "currency": "UAH",
+      "bought": false,
+      "id": "z-h6DTOqFRo"
+    },
+    {
+      "userId": "guest",
+      "name": "Bananas #wlf6",
+      "amount": "6 pcs",
+      "price": 57,
+      "currency": "UAH",
+      "bought": false,
+      "id": "skqwNill7JE"
+    },
+    {
+      "userId": "guest",
+      "name": "Chicken #wlf6",
+      "amount": "",
+      "price": 27,
+      "currency": "UAH",
+      "bought": false,
+      "id": "fK9mM-7YzQE"
+    },
+    {
+      "userId": "guest",
+      "name": "Rice #wlf6",
+      "amount": "2L",
+      "price": 104,
+      "currency": "USD",
+      "bought": false,
+      "id": "C6lGBVxTk9w"
+    },
+    {
+      "userId": "guest",
+      "name": "Pasta #wlf6",
+      "amount": "1 pack",
+      "price": 177,
+      "currency": "EUR",
+      "bought": false,
+      "id": "54GDT4v5ut8"
+    },
+    {
+      "userId": "guest",
+      "name": "Tomatoes #wlf6",
+      "amount": "1L",
+      "price": 177,
+      "currency": "UAH",
+      "bought": false,
+      "id": "fJPa8yZgq6k"
+    },
+    {
+      "userId": "guest",
+      "name": "Onions #wlf6",
+      "amount": "1 loaf",
+      "price": 119,
+      "currency": "UAH",
+      "bought": false,
+      "id": "W4Kj6k3Ld0g"
+    },
+    {
+      "userId": "guest",
+      "name": "Garlic #wlf6",
+      "amount": "12 pcs",
+      "price": 126,
+      "currency": "UAH",
+      "bought": false,
+      "id": "kY-nm_lZj8M"
+    },
+    {
+      "userId": "guest",
+      "name": "Yogurt #wlf6",
+      "amount": "200g",
+      "price": 20,
+      "currency": "USD",
+      "bought": false,
+      "id": "Ikd1bSlSw5o"
+    },
+    {
+      "userId": "guest",
+      "name": "Orange Juice #wlf6",
+      "amount": "500g",
+      "price": 84,
+      "currency": "EUR",
+      "bought": false,
+      "id": "CpUZw54I87c"
+    },
+    {
+      "userId": "guest",
+      "name": "Coffee #wlf6",
+      "amount": "1 kg",
+      "price": 61,
+      "currency": "UAH",
+      "bought": false,
+      "id": "luPt7CT_PFw"
+    },
+    {
+      "userId": "guest",
+      "name": "Tea #wlf6",
+      "amount": "6 pcs",
+      "price": 122,
+      "currency": "UAH",
+      "bought": false,
+      "id": "s2ZyiG8O9oA"
+    },
+    {
+      "userId": "guest",
+      "name": "Sugar #wlf6",
+      "amount": "",
+      "price": 142,
+      "currency": "UAH",
+      "bought": true,
+      "id": "BoYQoNa6HjM"
+    },
+    {
+      "userId": "guest",
+      "name": "Salt #wlf6",
+      "amount": "2L",
+      "price": 118,
+      "currency": "USD",
+      "bought": true,
+      "id": "YFMttVvE3u4"
+    },
+    {
+      "userId": "guest",
+      "name": "Olive Oil #wlf6",
+      "amount": "1 pack",
+      "price": 42,
+      "currency": "EUR",
+      "bought": true,
+      "id": "_pggBmNZGXA"
+    },
+    {
+      "userId": "guest",
+      "name": "Milk #wsh2",
+      "amount": "1L",
+      "price": 168,
+      "currency": "UAH",
+      "bought": false,
+      "id": "DB5XP5b5oF0"
+    },
+    {
+      "userId": "guest",
+      "name": "Bread #wsh2",
+      "amount": "1 loaf",
+      "price": 138,
+      "currency": "UAH",
+      "bought": false,
+      "id": "DAKINF-eJHg"
+    },
+    {
+      "userId": "guest",
+      "name": "Eggs #wsh2",
+      "amount": "12 pcs",
+      "price": 156,
+      "currency": "UAH",
+      "bought": false,
+      "id": "osovBbLhVMw"
+    },
+    {
+      "userId": "guest",
+      "name": "Butter #wsh2",
+      "amount": "200g",
+      "price": 69,
+      "currency": "USD",
+      "bought": false,
+      "id": "Rnh5bTFZNHg"
+    },
+    {
+      "userId": "guest",
+      "name": "Cheese #wsh2",
+      "amount": "500g",
+      "price": 104,
+      "currency": "EUR",
+      "bought": false,
+      "id": "x44m6PkQxkU"
+    },
+    {
+      "userId": "guest",
+      "name": "Apples #wsh2",
+      "amount": "1 kg",
+      "price": 207,
+      "currency": "UAH",
+      "bought": false,
+      "id": "rSjsrL3GKsA"
+    },
+    {
+      "userId": "guest",
+      "name": "Bananas #wsh2",
+      "amount": "6 pcs",
+      "price": 52,
+      "currency": "UAH",
+      "bought": false,
+      "id": "_2KJxHvZml4"
+    },
+    {
+      "userId": "guest",
+      "name": "Chicken #wsh2",
+      "amount": "",
+      "price": 202,
+      "currency": "UAH",
+      "bought": false,
+      "id": "g0yoS0CzVsE"
+    },
+    {
+      "userId": "guest",
+      "name": "Rice #wsh2",
+      "amount": "2L",
+      "price": 81,
+      "currency": "USD",
+      "bought": false,
+      "id": "VRA8HIjJy9o"
+    },
+    {
+      "userId": "guest",
+      "name": "Pasta #wsh2",
+      "amount": "1 pack",
+      "price": 116,
+      "currency": "EUR",
+      "bought": false,
+      "id": "kKB5louCsKs"
+    },
+    {
+      "userId": "guest",
+      "name": "Tomatoes #wsh2",
+      "amount": "1L",
+      "price": 135,
+      "currency": "UAH",
+      "bought": false,
+      "id": "KSaYOEoDj8A"
+    },
+    {
+      "userId": "guest",
+      "name": "Onions #wsh2",
+      "amount": "1 loaf",
+      "price": 172,
+      "currency": "UAH",
+      "bought": false,
+      "id": "KMwboHxB3UI"
+    },
+    {
+      "userId": "guest",
+      "name": "Garlic #wsh2",
+      "amount": "12 pcs",
+      "price": 102,
+      "currency": "UAH",
+      "bought": false,
+      "id": "JRmvelBcaA0"
+    },
+    {
+      "userId": "guest",
+      "name": "Yogurt #wsh2",
+      "amount": "200g",
+      "price": 59,
+      "currency": "USD",
+      "bought": false,
+      "id": "yMMOiQh5MQw"
+    },
+    {
+      "userId": "guest",
+      "name": "Orange Juice #wsh2",
+      "amount": "500g",
+      "price": 168,
+      "currency": "EUR",
+      "bought": false,
+      "id": "_sSOXt7-PO0"
+    },
+    {
+      "userId": "guest",
+      "name": "Coffee #wsh2",
+      "amount": "1 kg",
+      "price": 206,
+      "currency": "UAH",
+      "bought": false,
+      "id": "ZiDNKy9QdR4"
+    },
+    {
+      "userId": "guest",
+      "name": "Tea #wsh2",
+      "amount": "6 pcs",
+      "price": 115,
+      "currency": "UAH",
+      "bought": false,
+      "id": "11fiHClEUzg"
+    },
+    {
+      "userId": "guest",
+      "name": "Sugar #wsh2",
+      "amount": "",
+      "price": 153,
+      "currency": "UAH",
+      "bought": true,
+      "id": "_FSO_2u9fXw"
+    },
+    {
+      "userId": "guest",
+      "name": "Salt #wsh2",
+      "amount": "2L",
+      "price": 150,
+      "currency": "USD",
+      "bought": true,
+      "id": "8I8jgj4-GnI"
+    },
+    {
+      "userId": "guest",
+      "name": "Olive Oil #wsh2",
+      "amount": "1 pack",
+      "price": 102,
+      "currency": "EUR",
+      "bought": true,
+      "id": "lPs75VvPxJ8"
+    },
+    {
+      "userId": "guest",
+      "name": "Milk #x0ph",
+      "amount": "1L",
+      "price": 177,
+      "currency": "UAH",
+      "bought": false,
+      "id": "6x6E0CSGg9A"
+    },
+    {
+      "userId": "guest",
+      "name": "Butter #x0ph",
+      "amount": "200g",
+      "price": 48,
+      "currency": "USD",
+      "bought": false,
+      "id": "MRxwRlYP-mM"
+    },
+    {
+      "userId": "guest",
+      "name": "Cheese #x0ph",
+      "amount": "500g",
+      "price": 194,
+      "currency": "EUR",
+      "bought": false,
+      "id": "sCBx0XW0tu8"
+    },
+    {
+      "userId": "guest",
+      "name": "Apples #x0ph",
+      "amount": "1 kg",
+      "price": 194,
+      "currency": "UAH",
+      "bought": false,
+      "id": "Vr3Lv1Ac5Ww"
+    },
+    {
+      "userId": "guest",
+      "name": "Bananas #x0ph",
+      "amount": "6 pcs",
+      "price": 67,
+      "currency": "UAH",
+      "bought": false,
+      "id": "oLWjaqWr0v4"
+    },
+    {
+      "userId": "guest",
+      "name": "Chicken #x0ph",
+      "amount": "",
+      "price": 182,
+      "currency": "UAH",
+      "bought": false,
+      "id": "yEDArhRDB0w"
+    },
+    {
+      "userId": "guest",
+      "name": "Rice #x0ph",
+      "amount": "2L",
+      "price": 171,
+      "currency": "USD",
+      "bought": false,
+      "id": "Mf889HEWE7s"
+    },
+    {
+      "userId": "guest",
+      "name": "Pasta #x0ph",
+      "amount": "1 pack",
+      "price": 164,
+      "currency": "EUR",
+      "bought": false,
+      "id": "pP_ZGQAV0bs"
+    },
+    {
+      "userId": "guest",
+      "name": "Tomatoes #x0ph",
+      "amount": "1L",
+      "price": 157,
+      "currency": "UAH",
+      "bought": false,
+      "id": "G0AargIhUp8"
+    },
+    {
+      "userId": "guest",
+      "name": "Onions #x0ph",
+      "amount": "1 loaf",
+      "price": 77,
+      "currency": "UAH",
+      "bought": false,
+      "id": "oTHUYgA1Vjo"
+    },
+    {
+      "userId": "guest",
+      "name": "Garlic #x0ph",
+      "amount": "12 pcs",
+      "price": 26,
+      "currency": "UAH",
+      "bought": false,
+      "id": "_WcuG_5IEvU"
+    },
+    {
+      "userId": "guest",
+      "name": "Yogurt #x0ph",
+      "amount": "200g",
+      "price": 204,
+      "currency": "USD",
+      "bought": false,
+      "id": "IsRsbE-gotQ"
+    },
+    {
+      "userId": "guest",
+      "name": "Orange Juice #x0ph",
+      "amount": "500g",
+      "price": 192,
+      "currency": "EUR",
+      "bought": false,
+      "id": "mQrijmVnSJ0"
+    },
+    {
+      "userId": "guest",
+      "name": "Coffee #x0ph",
+      "amount": "1 kg",
+      "price": 144,
+      "currency": "UAH",
+      "bought": false,
+      "id": "Y51-0Dw0OwU"
+    },
+    {
+      "userId": "guest",
+      "name": "Tea #x0ph",
+      "amount": "6 pcs",
+      "price": 104,
+      "currency": "UAH",
+      "bought": false,
+      "id": "ZS4Mk-apwkI"
+    },
+    {
+      "userId": "guest",
+      "name": "Sugar #x0ph",
+      "amount": "",
+      "price": 54,
+      "currency": "UAH",
+      "bought": true,
+      "id": "1yQK_syaoqs"
+    },
+    {
+      "userId": "guest",
+      "name": "Salt #x0ph",
+      "amount": "2L",
+      "price": 61,
+      "currency": "USD",
+      "bought": true,
+      "id": "0Fj_hg-Zf1c"
+    },
+    {
+      "userId": "guest",
+      "name": "Olive Oil #x0ph",
+      "amount": "1 pack",
+      "price": 71,
+      "currency": "EUR",
+      "bought": true,
+      "id": "S59bx0zJWCM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

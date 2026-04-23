@@ -1,10 +1,18 @@
 <div class="auth-page">
   <div class="auth-card">
     <div class="auth-brand">
-      <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 0 1-8 0"/>
+      <svg
+        class="auth-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
       <span class="auth-brand-name">Grocery List</span>
     </div>
@@ -35,19 +43,29 @@
 
       <div class="field">
         <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" placeholder="Min. 6 characters" autocomplete="new-password" />
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Min. 6 characters"
+          autocomplete="new-password" />
         @if (fieldInvalid('password')) {
           <span class="field-error">Password must be at least 6 characters</span>
         }
       </div>
 
       <button type="submit" class="btn btn-primary btn-full" [disabled]="isLoading()">
-        @if (isLoading()) { Creating account… } @else { Create account }
+        @if (isLoading()) {
+          Creating account…
+        } @else {
+          Create account
+        }
       </button>
     </form>
 
     <p class="auth-switch">
-      Already have an account? <a routerLink="/login">Sign in</a>
+      Already have an account?
+      <a routerLink="/login">Sign in</a>
     </p>
   </div>
 </div>

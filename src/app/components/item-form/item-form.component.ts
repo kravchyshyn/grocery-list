@@ -1,4 +1,4 @@
-import { Component, input, output, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Currency, GroceryItem, ItemFormPayload } from '../../models/grocery-item.model';
 
@@ -6,24 +6,24 @@ import { Currency, GroceryItem, ItemFormPayload } from '../../models/grocery-ite
   selector: 'app-item-form',
   imports: [ReactiveFormsModule],
   templateUrl: './item-form.component.html',
-  styleUrl: './item-form.component.scss'
+  styleUrl: './item-form.component.scss',
 })
 export class ItemFormComponent implements OnInit {
   editItem = input<GroceryItem | null>(null);
   saved = output<ItemFormPayload>();
   cancelled = output<void>();
 
+  private fb = inject(FormBuilder);
+
   readonly currencies: Currency[] = ['UAH', 'USD', 'EUR'];
   form!: FormGroup;
-
-  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     const item = this.editItem();
     this.form = this.fb.group({
-      name: [item?.name ?? '', [Validators.required, Validators.minLength(1)]],
+      name: [item?.name ?? '', Validators.required],
       amount: [item?.amount ?? ''],
-      price: [item?.price ?? null, [Validators.min(0)]],
+      price: [item?.price ?? null, Validators.min(0)],
       currency: [item?.currency ?? 'UAH'],
     });
   }

@@ -1,34 +1,51 @@
 /* ── Design tokens ───────────────────────────────────── */
 :root {
-  --bg: #f5f5f4;
+  --bg: #f8faf8;
   --surface: #ffffff;
-  --surface-hover: #eeede9;
-  --border: #e7e5e4;
-  --border-strong: #d6d3d1;
-  --chip-bg: #f0efee;
-  --accent: #525252;
-  --accent-hover: #3f3f3f;
+  --surface-hover: #f0f7f0;
+  --border: #e4ede4;
+  --border-strong: #c8dcc8;
+  --chip-bg: #eef6ee;
+  --accent: #1a7a3c;
+  --accent-hover: #145f2e;
   --danger: #dc2626;
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --text-muted: #a8a29e;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+}
+
+/* ── Type scale ───────────────────────────────────────── */
+:root {
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --text-xs: 0.75rem; /* 12px — hints, badges */
+  --text-sm: 0.8125rem; /* 13px — chips, muted labels */
+  --text-base: 0.9375rem; /* 15px — body, item names, inputs */
+  --text-md: 1rem; /* 16px — nav brand, form titles */
+  --text-lg: 1.125rem; /* 18px — section headings */
+  --text-xl: 1.5rem; /* 24px — auth page titles */
+  --text-2xl: 1.75rem; /* 28px — list page title */
 }
 
 /* ── Reset / base ────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100%;
   background: var(--bg);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font);
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── Shared button styles ────────────────────────────── */
@@ -37,17 +54,22 @@ html, body {
   align-items: center;
   gap: 0.4rem;
   padding: 0.5rem 1.125rem;
-  font-size: 0.9rem;
+  font-family: var(--font);
+  font-size: var(--text-base);
   font-weight: 500;
   border-radius: 8px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
   white-space: nowrap;
   outline: none;
 
   &:focus-visible {
-    box-shadow: 0 0 0 3px rgba(82, 82, 82, 0.2);
+    box-shadow: 0 0 0 3px rgba(26, 122, 60, 0.2);
   }
 
   &:disabled {
@@ -68,7 +90,7 @@ html, body {
 
   &-sm {
     padding: 0.375rem 0.75rem;
-    font-size: 0.8rem;
+    font-size: var(--text-sm);
     border-radius: 6px;
   }
 

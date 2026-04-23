@@ -31,27 +31,24 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http
-      .get<User[]>(`${this.apiUrl}?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
-      .pipe(
-        map((users) => {
-          if (!users.length) throw new Error('Invalid email or password.');
-          return users[0];
-        }),
-        tap((user) => this.setUser(user))
-      );
+    const url = `${this.apiUrl}?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    return this.http.get<User[]>(url).pipe(
+      map((users) => {
+        if (!users.length) throw new Error('Invalid email or password.');
+        return users[0];
+      }),
+      tap((user) => this.setUser(user)),
+    );
   }
 
   register(name: string, email: string, password: string) {
-    return this.http
-      .get<User[]>(`${this.apiUrl}?email=${encodeURIComponent(email)}`)
-      .pipe(
-        switchMap((existing) => {
-          if (existing.length) throw new Error('An account with this email already exists.');
-          return this.http.post<User>(this.apiUrl, { name, email, password });
-        }),
-        tap((user) => this.setUser(user))
-      );
+    return this.http.get<User[]>(`${this.apiUrl}?email=${encodeURIComponent(email)}`).pipe(
+      switchMap((existing) => {
+        if (existing.length) throw new Error('An account with this email already exists.');
+        return this.http.post<User>(this.apiUrl, { name, email, password });
+      }),
+      tap((user) => this.setUser(user)),
+    );
   }
 
   loginAsGuest(): void {

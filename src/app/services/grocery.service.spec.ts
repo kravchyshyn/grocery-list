@@ -10,8 +10,13 @@ describe('GroceryService', () => {
   const apiUrl = 'http://localhost:3000/items';
 
   const mockItem: GroceryItem = {
-    id: '1', userId: 'u1', name: 'Milk', amount: '2L',
-    price: 48, currency: 'UAH', bought: false,
+    id: '1',
+    userId: 'u1',
+    name: 'Milk',
+    amount: '2L',
+    price: 48,
+    currency: 'UAH',
+    bought: false,
   };
 
   beforeEach(() => {
@@ -31,7 +36,7 @@ describe('GroceryService', () => {
   describe('getItems', () => {
     it('should GET items filtered by userId', () => {
       let result: GroceryItem[] | undefined;
-      service.getItems('u1').subscribe(items => (result = items));
+      service.getItems('u1').subscribe((items) => (result = items));
 
       const req = httpMock.expectOne(`${apiUrl}?userId=u1`);
       expect(req.request.method).toBe('GET');
@@ -43,11 +48,18 @@ describe('GroceryService', () => {
 
   describe('addItem', () => {
     it('should POST and return the created item', () => {
-      const payload = { userId: 'u1', name: 'Bread', amount: '1 loaf', price: null, currency: 'UAH' as const, bought: false };
+      const payload = {
+        userId: 'u1',
+        name: 'Bread',
+        amount: '1 loaf',
+        price: null,
+        currency: 'UAH' as const,
+        bought: false,
+      };
       const created: GroceryItem = { id: '2', ...payload };
       let result: GroceryItem | undefined;
 
-      service.addItem(payload).subscribe(item => (result = item));
+      service.addItem(payload).subscribe((item) => (result = item));
 
       const req = httpMock.expectOne(apiUrl);
       expect(req.request.method).toBe('POST');
@@ -63,7 +75,7 @@ describe('GroceryService', () => {
       const updated: GroceryItem = { ...mockItem, bought: true };
       let result: GroceryItem | undefined;
 
-      service.updateItem('1', { bought: true }).subscribe(item => (result = item));
+      service.updateItem('1', { bought: true }).subscribe((item) => (result = item));
 
       const req = httpMock.expectOne(`${apiUrl}/1`);
       expect(req.request.method).toBe('PATCH');

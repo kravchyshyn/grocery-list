@@ -39,7 +39,10 @@ describe('GroceryListComponent', () => {
 
   beforeEach(async () => {
     grocerySpy = jasmine.createSpyObj('GroceryService', [
-      'getItems', 'addItem', 'updateItem', 'deleteItem',
+      'getItems',
+      'addItem',
+      'updateItem',
+      'deleteItem',
     ]);
     grocerySpy.getItems.and.returnValue(of(twoItems));
     authMock = createAuthMock();
@@ -111,12 +114,18 @@ describe('GroceryListComponent', () => {
 
   // ── saveItem ────────────────────────────────────────────────
 
-  it('should add a new item and append it to the list', () => {
+  it('should add a new item and prepend it to the list', () => {
     const newItem: GroceryItem = { ...twoItems[0], id: '99', name: 'Butter' };
     grocerySpy.addItem.and.returnValue(of(newItem));
 
     component.openAddForm();
-    const payload: ItemFormPayload = { name: 'Butter', amount: '', price: null, currency: 'UAH', bought: false };
+    const payload: ItemFormPayload = {
+      name: 'Butter',
+      amount: '',
+      price: null,
+      currency: 'UAH',
+      bought: false,
+    };
     component.saveItem(payload);
 
     expect(grocerySpy.addItem).toHaveBeenCalledWith({ ...payload, userId: 'u1' });
@@ -129,10 +138,16 @@ describe('GroceryListComponent', () => {
     grocerySpy.updateItem.and.returnValue(of(updated));
 
     component.openEditForm(twoItems[0]);
-    const payload: ItemFormPayload = { name: 'Skimmed Milk', amount: '2L', price: null, currency: 'UAH', bought: false };
+    const payload: ItemFormPayload = {
+      name: 'Skimmed Milk',
+      amount: '2L',
+      price: null,
+      currency: 'UAH',
+      bought: false,
+    };
     component.saveItem(payload);
 
-    const found = component.items().find(i => i.id === twoItems[0].id);
+    const found = component.items().find((i) => i.id === twoItems[0].id);
     expect(found?.name).toBe('Skimmed Milk');
     expect(component.formMode()).toBeNull();
   });
@@ -152,7 +167,9 @@ describe('GroceryListComponent', () => {
 
     component.toggleBought(twoItems[0]);
 
-    expect(grocerySpy.updateItem).toHaveBeenCalledWith(twoItems[0].id, { bought: !twoItems[0].bought });
+    expect(grocerySpy.updateItem).toHaveBeenCalledWith(twoItems[0].id, {
+      bought: !twoItems[0].bought,
+    });
     expect(component.items()[0].bought).toBe(toggled.bought);
   });
 
@@ -161,7 +178,7 @@ describe('GroceryListComponent', () => {
   it('should remove the item from the list after deletion', () => {
     grocerySpy.deleteItem.and.returnValue(of(undefined));
     component.deleteItem(twoItems[0].id);
-    expect(component.items().every(i => i.id !== twoItems[0].id)).toBeTrue();
+    expect(component.items().every((i) => i.id !== twoItems[0].id)).toBeTrue();
   });
 
   it('should close the form when the edited item is deleted', () => {
@@ -187,16 +204,17 @@ describe('GroceryListComponent', () => {
     expect(component.pagedItems().length).toBe(2);
   });
 
-  it('should show 20 items on page 1 when there are 25 items', () => {
+  it('should show 10 items on page 1 when there are 25 items', () => {
     component.items.set(makeItems(25));
-    expect(component.totalPages()).toBe(2);
-    expect(component.pagedItems().length).toBe(20);
+    expect(component.totalPages()).toBe(3);
+    expect(component.pagedItems().length).toBe(10);
   });
 
-  it('should show remaining 5 items on page 2', () => {
+  it('should show remaining 5 items on the last page', () => {
     component.items.set(makeItems(25));
     component.nextPage();
-    expect(component.currentPage()).toBe(2);
+    component.nextPage();
+    expect(component.currentPage()).toBe(3);
     expect(component.pagedItems().length).toBe(5);
   });
 
@@ -209,14 +227,14 @@ describe('GroceryListComponent', () => {
     component.items.set(makeItems(25));
     component.nextPage();
     component.nextPage(); // already on last page
-    expect(component.currentPage()).toBe(2);
+    expect(component.currentPage()).toBe(3);
   });
 
   it('should clamp to last page when deleting reduces total pages', () => {
     grocerySpy.deleteItem.and.returnValue(of(undefined));
-    component.items.set(makeItems(21));
+    component.items.set(makeItems(11));
     component.nextPage(); // page 2 (1 item)
-    component.deleteItem('21');    // removes the only item on page 2
+    component.deleteItem('11'); // removes the only item on page 2
     expect(component.currentPage()).toBe(1);
   });
 
@@ -238,7 +256,12 @@ describe('GroceryListComponent — guest mode', () => {
   let grocerySpy: jasmine.SpyObj<GroceryService>;
 
   beforeEach(async () => {
-    grocerySpy = jasmine.createSpyObj('GroceryService', ['getItems', 'addItem', 'updateItem', 'deleteItem']);
+    grocerySpy = jasmine.createSpyObj('GroceryService', [
+      'getItems',
+      'addItem',
+      'updateItem',
+      'deleteItem',
+    ]);
     grocerySpy.getItems.and.returnValue(of([]));
     const authMock = createAuthMock(GUEST_USER, true);
 
