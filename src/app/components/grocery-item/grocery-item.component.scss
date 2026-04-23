@@ -1,0 +1,146 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: background 0.15s, opacity 0.15s;
+
+  &:hover {
+    background: var(--surface-hover);
+
+    .item-actions {
+      opacity: 1;
+    }
+  }
+
+  &--bought {
+    opacity: 0.65;
+
+    .item-name {
+      text-decoration: line-through;
+      color: var(--text-secondary);
+    }
+  }
+}
+
+// Custom checkbox
+.item-check {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.checkmark {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg);
+  transition: background 0.15s, border-color 0.15s;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+}
+
+input[type='checkbox']:checked + .checkmark {
+  background: var(--accent);
+  border-color: var(--accent);
+
+  &::after {
+    display: block;
+  }
+}
+
+input[type='checkbox']:focus-visible + .checkmark {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.item-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s, text-decoration 0.15s;
+}
+
+.item-amount {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--chip-bg);
+  padding: 0.125rem 0.5rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+
+  @media (hover: none) {
+    opacity: 1;
+  }
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &--edit {
+    color: var(--text-secondary);
+    &:hover { background: var(--chip-bg); color: var(--accent); }
+  }
+
+  &--delete {
+    color: var(--text-secondary);
+    &:hover { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+  }
+}
