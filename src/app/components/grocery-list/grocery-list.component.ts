@@ -1,6 +1,8 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { GroceryItem, GroceryItemPayload } from '../../models/grocery-item.model';
+import { RouterLink } from '@angular/router';
+import { GroceryItem, GroceryItemPayload, ItemFormPayload } from '../../models/grocery-item.model';
 import { GroceryService } from '../../services/grocery.service';
+import { AuthService } from '../../services/auth.service';
 import { GroceryItemComponent } from '../grocery-item/grocery-item.component';
 import { ItemFormComponent } from '../item-form/item-form.component';
 
@@ -8,12 +10,16 @@ type FormMode = 'add' | 'edit' | null;
 
 @Component({
   selector: 'app-grocery-list',
-  imports: [GroceryItemComponent, ItemFormComponent],
+  imports: [GroceryItemComponent, ItemFormComponent, RouterLink],
   templateUrl: './grocery-list.component.html',
   styleUrl: './grocery-list.component.scss'
 })
 export class GroceryListComponent implements OnInit {
   private groceryService = inject(GroceryService);
+  private auth = inject(AuthService);
+
+  currentUser = this.auth.currentUser;
+  isGuest = computed(() => this.auth.isGuest());
 
   items = signal<GroceryItem[]>([]);
   isLoading = signal(false);
@@ -28,7 +34,7 @@ export class GroceryListComponent implements OnInit {
   loadItems() {
     this.isLoading.set(true);
     this.error.set(null);
-    this.groceryService.getItems().subscribe({
+    this.groceryService.getItems(this.currentUser()!.id).subscribe({
       next: (items) => {
         this.items.set(items);
         this.isLoading.set(false);
@@ -55,14 +61,14 @@ export class GroceryListComponent implements OnInit {
     this.editingItem.set(null);
   }
 
-  saveItem(payload: GroceryItemPayload) {
+  saveItem(formPayload: ItemFormPayload) {
     const editing = this.editingItem();
+    const payload: GroceryItemPayload = { ...formPayload, userId: this.currentUser()!.id };
+
     if (editing) {
       this.groceryService.updateItem(editing.id, payload).subscribe({
         next: (updated) => {
-          this.items.update((list) =>
-            list.map((i) => (i.id === updated.id ? updated : i))
-          );
+          this.items.update((list) => list.map((i) => (i.id === updated.id ? updated : i)));
           this.closeForm();
         },
         error: () => this.error.set('Failed to update item.')
@@ -81,9 +87,7 @@ export class GroceryListComponent implements OnInit {
   toggleBought(item: GroceryItem) {
     this.groceryService.updateItem(item.id, { bought: !item.bought }).subscribe({
       next: (updated) => {
-        this.items.update((list) =>
-          list.map((i) => (i.id === updated.id ? updated : i))
-        );
+        this.items.update((list) => list.map((i) => (i.id === updated.id ? updated : i)));
       },
       error: () => this.error.set('Failed to update item.')
     });
@@ -97,6 +101,10 @@ export class GroceryListComponent implements OnInit {
       },
       error: () => this.error.set('Failed to delete item.')
     });
+  }
+
+  logout() {
+    this.auth.logout();
   }
 
   boughtCount = computed(() => this.items().filter((i) => i.bought).length);
