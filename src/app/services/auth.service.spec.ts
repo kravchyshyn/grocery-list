@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebaseAuthModule from 'firebase/auth';
 import { AuthService } from './auth.service';
+import { FirebaseAuthApi } from './firebase-auth-api.service';
 import { User } from '../models/user.model';
 
 const mockFbUser = (overrides: Partial<firebaseAuthModule.User> = {}) =>
@@ -16,23 +17,34 @@ const mockFbUser = (overrides: Partial<firebaseAuthModule.User> = {}) =>
 
 const mockUser: User = { id: 'u1', name: 'Alice', email: 'alice@test.com', isAnonymous: false };
 
+function makeAuthApi(onAuthCb: (cb: (u: firebaseAuthModule.User | null) => void) => void) {
+  const api = jasmine.createSpyObj<FirebaseAuthApi>('FirebaseAuthApi', [
+    'onAuthStateChanged',
+    'signInWithEmailAndPassword',
+    'createUserWithEmailAndPassword',
+    'updateProfile',
+    'signInAnonymously',
+    'signOut',
+  ]);
+  api.onAuthStateChanged.and.callFake((cb: any) => {
+    onAuthCb(cb);
+    return () => {};
+  });
+  return api;
+}
+
 describe('AuthService', () => {
   let service: AuthService;
   let router: Router;
-  let onAuthChangedSpy: jasmine.Spy;
+  let authApi: jasmine.SpyObj<FirebaseAuthApi>;
 
   beforeEach(() => {
     localStorage.clear();
+    authApi = makeAuthApi((cb) => cb(null));
 
-    // Intercept onAuthStateChanged before the service constructor runs
-    onAuthChangedSpy = spyOn(firebaseAuthModule, 'onAuthStateChanged').and.callFake(
-      (_auth: firebaseAuthModule.Auth, cb: firebaseAuthModule.NextOrObserver<firebaseAuthModule.User | null>) => {
-        if (typeof cb === 'function') cb(null);
-        return () => {};
-      },
-    );
-
-    TestBed.configureTestingModule({ providers: [provideRouter([])] });
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), { provide: FirebaseAuthApi, useValue: authApi }],
+    });
     service = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
   });
@@ -52,10 +64,11 @@ describe('AuthService', () => {
   it('should restore user from localStorage on creation', () => {
     localStorage.setItem('grocery_auth_user', JSON.stringify(mockUser));
     TestBed.resetTestingModule();
-    onAuthChangedSpy = spyOn(firebaseAuthModule, 'onAuthStateChanged').and.callFake(
-      (_auth: any, cb: any) => { cb(null); return () => {}; },
-    );
-    TestBed.configureTestingModule({ providers: [provideRouter([])] });
+    // Don't fire the callback — Firebase hasn't resolved yet, localStorage is the source of truth
+    const freshApi = makeAuthApi((_cb) => {});
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), { provide: FirebaseAuthApi, useValue: freshApi }],
+    });
     const fresh = TestBed.inject(AuthService);
     expect(fresh.currentUser()).toEqual(mockUser);
     expect(fresh.isLoggedIn()).toBeTrue();
@@ -63,21 +76,19 @@ describe('AuthService', () => {
 
   describe('login', () => {
     it('should set currentUser on success', () => {
-      spyOn(firebaseAuthModule, 'signInWithEmailAndPassword').and.returnValue(
+      authApi.signInWithEmailAndPassword.and.returnValue(
         Promise.resolve({ user: mockFbUser() } as firebaseAuthModule.UserCredential),
       );
 
-      let result: User | undefined;
-      service.login('alice@test.com', 'secret').subscribe((u) => (result = u));
+      service.login('alice@test.com', 'secret').subscribe();
 
-      // tick promises
       return Promise.resolve().then(() => {
         expect(service.currentUser()).toEqual(mockUser);
       });
     });
 
     it('should throw with message when credentials are wrong', (done) => {
-      spyOn(firebaseAuthModule, 'signInWithEmailAndPassword').and.returnValue(
+      authApi.signInWithEmailAndPassword.and.returnValue(
         Promise.reject({ code: 'auth/invalid-credential' }),
       );
 
@@ -93,10 +104,10 @@ describe('AuthService', () => {
   describe('register', () => {
     it('should create user and set currentUser', (done) => {
       const fbUser = mockFbUser({ displayName: 'Bob', email: 'bob@test.com', uid: 'u2' });
-      spyOn(firebaseAuthModule, 'createUserWithEmailAndPassword').and.returnValue(
+      authApi.createUserWithEmailAndPassword.and.returnValue(
         Promise.resolve({ user: fbUser } as firebaseAuthModule.UserCredential),
       );
-      spyOn(firebaseAuthModule, 'updateProfile').and.returnValue(Promise.resolve());
+      authApi.updateProfile.and.returnValue(Promise.resolve());
 
       service.register('Bob', 'bob@test.com', 'pass123').subscribe((u) => {
         expect(u.name).toBe('Bob');
@@ -105,7 +116,7 @@ describe('AuthService', () => {
     });
 
     it('should throw when email is already registered', (done) => {
-      spyOn(firebaseAuthModule, 'createUserWithEmailAndPassword').and.returnValue(
+      authApi.createUserWithEmailAndPassword.and.returnValue(
         Promise.reject({ code: 'auth/email-already-in-use' }),
       );
 
@@ -121,7 +132,7 @@ describe('AuthService', () => {
   describe('loginAsGuest', () => {
     it('should set an anonymous user and navigate to /', (done) => {
       const guestFbUser = mockFbUser({ uid: 'anon1', displayName: null, email: null, isAnonymous: true });
-      spyOn(firebaseAuthModule, 'signInAnonymously').and.returnValue(
+      authApi.signInAnonymously.and.returnValue(
         Promise.resolve({ user: guestFbUser } as firebaseAuthModule.UserCredential),
       );
       const navSpy = spyOn(router, 'navigate');
@@ -138,10 +149,9 @@ describe('AuthService', () => {
 
   describe('logout', () => {
     it('should clear currentUser and navigate to /login', (done) => {
-      spyOn(firebaseAuthModule, 'signOut').and.returnValue(Promise.resolve());
+      authApi.signOut.and.returnValue(Promise.resolve());
       const navSpy = spyOn(router, 'navigate');
 
-      // Set a user first
       service['currentUser'].set(mockUser);
       service.logout();
 
@@ -155,15 +165,15 @@ describe('AuthService', () => {
 
   describe('onAuthStateChanged integration', () => {
     it('should update currentUser when Firebase fires with a user', () => {
-      let captured: firebaseAuthModule.NextOrObserver<firebaseAuthModule.User | null> | undefined;
-      (firebaseAuthModule.onAuthStateChanged as jasmine.Spy).and.callFake(
-        (_auth: any, cb: any) => { captured = cb; return () => {}; },
-      );
+      let captured: ((u: firebaseAuthModule.User | null) => void) | undefined;
       TestBed.resetTestingModule();
-      TestBed.configureTestingModule({ providers: [provideRouter([])] });
+      const captureApi = makeAuthApi((cb) => { captured = cb; });
+      TestBed.configureTestingModule({
+        providers: [provideRouter([]), { provide: FirebaseAuthApi, useValue: captureApi }],
+      });
       const svc = TestBed.inject(AuthService);
 
-      if (typeof captured === 'function') captured(mockFbUser());
+      if (captured) captured(mockFbUser());
       expect(svc.currentUser()?.id).toBe('u1');
     });
   });

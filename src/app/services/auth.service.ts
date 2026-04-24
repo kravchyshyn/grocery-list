@@ -1,29 +1,21 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { from, Observable } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInAnonymously,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile,
-  User as FirebaseUser,
-} from 'firebase/auth';
-import { firebaseAuth } from '../firebase';
+import { User as FirebaseUser } from 'firebase/auth';
+import { FirebaseAuthApi } from './firebase-auth-api.service';
 import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private router = inject(Router);
+  private authApi = inject(FirebaseAuthApi);
   private readonly STORAGE_KEY = 'grocery_auth_user';
 
   currentUser = signal<User | null>(this.restoreUser());
 
   constructor() {
-    onAuthStateChanged(firebaseAuth, (fbUser) => {
+    this.authApi.onAuthStateChanged((fbUser) => {
       const user = fbUser ? this.mapUser(fbUser) : null;
       this.currentUser.set(user);
       if (user) {
@@ -43,7 +35,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<User> {
-    return from(signInWithEmailAndPassword(firebaseAuth, email, password)).pipe(
+    return from(this.authApi.signInWithEmailAndPassword(email, password)).pipe(
       map((cred) => this.mapUser(cred.user)),
       tap((user) => this.currentUser.set(user)),
       catchError(() => throwError(() => new Error('Invalid email or password.'))),
@@ -52,8 +44,8 @@ export class AuthService {
 
   register(name: string, email: string, password: string): Observable<User> {
     return from(
-      createUserWithEmailAndPassword(firebaseAuth, email, password).then((cred) =>
-        updateProfile(cred.user, { displayName: name }).then(() => cred.user),
+      this.authApi.createUserWithEmailAndPassword(email, password).then((cred) =>
+        this.authApi.updateProfile(cred.user, { displayName: name }).then(() => cred.user),
       ),
     ).pipe(
       map((fbUser) => this.mapUser(fbUser)),
@@ -72,7 +64,7 @@ export class AuthService {
   }
 
   loginAsGuest(): void {
-    signInAnonymously(firebaseAuth).then((cred) => {
+    this.authApi.signInAnonymously().then((cred) => {
       this.currentUser.set(this.mapUser(cred.user));
       this.router.navigate(['/']);
     });
@@ -81,7 +73,7 @@ export class AuthService {
   logout(): void {
     this.currentUser.set(null);
     localStorage.removeItem(this.STORAGE_KEY);
-    signOut(firebaseAuth).then(() => this.router.navigate(['/login']));
+    this.authApi.signOut().then(() => this.router.navigate(['/login']));
   }
 
   private mapUser(fbUser: FirebaseUser): User {

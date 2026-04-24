@@ -281,7 +281,7 @@ describe('GroceryListComponent — guest mode', () => {
   });
 
   it('should load items using the guest user id', () => {
-    expect(grocerySpy.getItems).toHaveBeenCalledWith('guest');
+    expect(grocerySpy.getItems).toHaveBeenCalledWith('guest-uid');
   });
 
   it('isGuest should be true', () => {
