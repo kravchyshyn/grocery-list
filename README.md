@@ -1,59 +1,92 @@
-# GroceryList
+# Grocery List
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+A single-page Angular application for managing a personal grocery list with user authentication, item pricing, and multi-currency totals.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- **Angular 21** (standalone components, signals)
+- **json-server** — mock REST API (`db.json`)
+- **Karma + Jasmine** — unit tests
+- **Prettier** — code formatting
 
-```bash
-ng serve
-```
+## Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Authentication** — register, log in, or continue as a guest (session persisted in `localStorage`)
+- **CRUD** — add, edit, and delete grocery items
+- **Mark as bought** — toggle purchased state per item
+- **Pricing** — optional price field with currency selection (UAH ₴, USD $, EUR €)
+- **Totals** — live spending summary for bought items, grouped by currency
+- **Pagination** — 10 items per page with previous/next navigation
+- **Test data** — generate 20 seed items in one click
 
-## Code scaffolding
+## Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
+- Node.js 18+
+- npm 10+
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Install dependencies
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Run the app (API + dev server together)
 
 ```bash
-ng test
+npm run dev
 ```
 
-## Running end-to-end tests
+This starts json-server on `http://localhost:3000` and the Angular dev server on `http://localhost:4200` concurrently.
 
-For end-to-end (e2e) testing, run:
+Or run them separately:
 
 ```bash
-ng e2e
+npm run api    # json-server on :3000
+npm run start  # Angular dev server on :4200
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Scripts
 
-## Additional Resources
+| Command | Description |
+|---|---|
+| `npm run dev` | Start API + Angular dev server concurrently |
+| `npm run start` | Angular dev server only (`ng serve`) |
+| `npm run api` | json-server mock API only |
+| `npm run build` | Production build to `dist/` |
+| `npm test` | Run unit tests (watch mode) |
+| `npm run test:ci` | Run unit tests once (CI) |
+| `npm run test:coverage` | Run unit tests with coverage report |
+| `npm run format` | Format all files with Prettier |
+| `npm run format:check` | Check formatting without writing |
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Project Structure
+
+```
+src/
+  app/
+    components/
+      grocery-list/   # Main list view with pagination and totals
+      grocery-item/   # Individual item row (toggle, edit, delete)
+      item-form/      # Add / edit form
+      login/          # Login page
+      register/       # Registration page
+    guards/           # authGuard / noAuthGuard route protection
+    models/           # GroceryItem, User types
+    services/         # GroceryService, AuthService
+db.json               # json-server data store
+```
+
+## API
+
+json-server exposes a REST API at `http://localhost:3000`:
+
+| Endpoint | Description |
+|---|---|
+| `GET /users` | List users |
+| `POST /users` | Create user |
+| `GET /items?userId=:id` | Get items for a user |
+| `POST /items` | Add item |
+| `PATCH /items/:id` | Update item |
+| `DELETE /items/:id` | Delete item |
