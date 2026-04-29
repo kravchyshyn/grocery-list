@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { forkJoin } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import { debounceTime, filter, forkJoin } from 'rxjs';
+import { RouterLink }                                  from '@angular/router';
 import {
   Currency,
   CURRENCY_SYMBOLS,
@@ -11,7 +11,8 @@ import {
 import { GroceryService } from '../../services/grocery.service';
 import { AuthService } from '../../services/auth.service';
 import { GroceryItemComponent } from '../grocery-item/grocery-item.component';
-import { ItemFormComponent } from '../item-form/item-form.component';
+import { ItemFormComponent }                                       from '../item-form/item-form.component';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 type FormMode = 'add' | 'edit' | null;
 const PAGE_SIZE = 10;
@@ -26,7 +27,7 @@ const SEED_CURRENCIES: Currency[] = ['UAH', 'UAH', 'UAH', 'USD', 'EUR'];
 
 @Component({
   selector: 'app-grocery-list',
-  imports: [GroceryItemComponent, ItemFormComponent, RouterLink],
+  imports: [GroceryItemComponent, ItemFormComponent, RouterLink, ReactiveFormsModule],
   templateUrl: './grocery-list.component.html',
   styleUrl: './grocery-list.component.scss',
 })
@@ -34,6 +35,7 @@ export class GroceryListComponent implements OnInit {
   private groceryService = inject(GroceryService);
   private auth = inject(AuthService);
 
+  isItemLoading = signal(false);
   currentUser = this.auth.currentUser;
   isGuest = computed(() => this.auth.isGuest());
 
@@ -63,6 +65,32 @@ export class GroceryListComponent implements OnInit {
     }));
   });
 
+  form = new FormGroup({
+    search: new FormControl('', [Validators.minLength(2)])
+  });
+
+  constructor() {
+    this.form.controls.search.valueChanges
+      .pipe(
+        debounceTime(500))
+      .subscribe((searchText) => {
+        if (!searchText) {
+          return;
+        }
+
+        this.groceryService.searchItems(this.auth.currentUser()?.id as string, searchText.trim() as string).subscribe((items) => {
+          if (items.length > 0) {
+            this.items.set(items);
+            this.currentPage.set(1);
+            this.error.set(null);
+          } else {
+            this.items.set([]);
+            this.currentPage.set(1);
+            this.error.set('No items found.');
+          }
+        })
+      })
+  }
   ngOnInit() {
     this.loadItems();
   }
@@ -100,23 +128,35 @@ export class GroceryListComponent implements OnInit {
   saveItem(formPayload: ItemFormPayload) {
     const editing = this.editingItem();
     const payload: GroceryItemPayload = { ...formPayload, userId: this.currentUser()!.id };
+    this.isItemLoading.set(true);
 
     if (editing) {
-      this.groceryService.updateItem(editing.id, payload).subscribe({
-        next: (updated) => {
-          this.items.update((list) => list.map((i) => (i.id === updated.id ? updated : i)));
-          this.closeForm();
-        },
-        error: () => this.error.set('Failed to update item.'),
-      });
+      this.groceryService
+        .updateItem(editing.id, payload)
+        .pipe(debounceTime(500))
+        .subscribe({
+          next: (updated) => {
+            this.items.update((list) => list.map((i) => (i.id === updated.id ? updated : i)));
+            this.isItemLoading.set(false);
+            this.closeForm();
+          },
+          error: () => {
+            this.error.set('Failed to update item.');
+            this.isItemLoading.set(false);
+          },
+        });
     } else {
       this.groceryService.addItem(payload).subscribe({
         next: (created) => {
           this.items.update((list) => [created, ...list]);
           this.currentPage.set(1);
           this.closeForm();
+          this.isItemLoading.set(false);
         },
-        error: () => this.error.set('Failed to add item.'),
+        error: () => {
+          this.error.set('Failed to add item.');
+          this.isItemLoading.set(false);
+        },
       });
     }
   }

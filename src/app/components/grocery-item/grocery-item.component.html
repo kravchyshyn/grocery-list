@@ -7,7 +7,7 @@
   </label>
 
   <div class="item-body">
-    <span class="item-name">{{ item().name }}</span>
+    <span class="item-name" (click)="toggle()">{{ item().name }}</span>
     @if (item().amount) {
       <span class="chip chip--amount">{{ item().amount }}</span>
     }

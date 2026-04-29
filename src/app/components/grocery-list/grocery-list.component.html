@@ -140,8 +140,17 @@
     }
 
     @if (formMode() === 'add') {
-      <app-item-form [editItem]="null" (saved)="saveItem($event)" (cancelled)="closeForm()" />
+      <app-item-form [isloading]="isItemLoading()" [editItem]="null" (saved)="saveItem($event)"
+                     (cancelled)="closeForm()" />
     }
+
+    <div  class="fields-row">
+      <div class="field">
+        <input id="search" placeholder="Search..." type="text" formControlName="search"
+               autocomplete="off" />
+      </div>
+    </div>
+
 
     @if (isLoading()) {
       <div class="loading">
@@ -170,7 +179,8 @@
         @for (item of pagedItems(); track item.id) {
           <li>
             @if (formMode() === 'edit' && editingItem()?.id === item.id) {
-              <app-item-form [editItem]="editingItem()" (saved)="saveItem($event)" (cancelled)="closeForm()" />
+              <app-item-form [isloading]="isItemLoading()" [editItem]="editingItem()" (saved)="saveItem($event)"
+                             (cancelled)="closeForm()" />
             } @else {
               <app-grocery-item
                 [item]="item"

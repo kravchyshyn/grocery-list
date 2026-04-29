@@ -12,6 +12,12 @@ export class GroceryService {
     return this.http.get<GroceryItem[]>(`${this.apiUrl}?userId=${userId}`);
   }
 
+  searchItems(userId: string, text: string): Observable<GroceryItem[]> {
+    if (!text) return this.getItems(userId);
+
+    return this.http.get<GroceryItem[]>(`${this.apiUrl}?userId=${userId}&name:contains=${text}`);
+  }
+
   addItem(payload: GroceryItemPayload): Observable<GroceryItem> {
     return this.http.post<GroceryItem>(this.apiUrl, payload);
   }

@@ -56,7 +56,7 @@
       "amount": "12 pcs",
       "price": 92,
       "currency": "UAH",
-      "bought": false,
+      "bought": true,
       "id": "WPDvlrTYL6I"
     },
     {
@@ -65,7 +65,7 @@
       "amount": "200g",
       "price": 136,
       "currency": "USD",
-      "bought": false,
+      "bought": true,
       "id": "ebQ7QGX3pvE"
     },
     {
@@ -74,7 +74,7 @@
       "amount": "500g",
       "price": 76,
       "currency": "EUR",
-      "bought": false,
+      "bought": true,
       "id": "hJk3y9jxsKc"
     },
     {
@@ -83,7 +83,7 @@
       "amount": "1 kg",
       "price": 181,
       "currency": "UAH",
-      "bought": false,
+      "bought": true,
       "id": "z-h6DTOqFRo"
     },
     {
@@ -553,6 +553,564 @@
       "currency": "EUR",
       "bought": true,
       "id": "S59bx0zJWCM"
+    },
+    {
+      "userId": "guest",
+      "name": "Milk #zj6w",
+      "amount": "1L",
+      "price": 106,
+      "currency": "UAH",
+      "bought": false,
+      "id": "lQNlho-LAek"
+    },
+    {
+      "userId": "guest",
+      "name": "Yogurt #zj6w",
+      "amount": "200g",
+      "price": 75,
+      "currency": "USD",
+      "bought": false,
+      "id": "diwPGH0VHaM"
+    },
+    {
+      "userId": "guest",
+      "name": "Orange Juice #zj6w",
+      "amount": "500g",
+      "price": 113,
+      "currency": "EUR",
+      "bought": false,
+      "id": "Mzn9xbennbo"
+    },
+    {
+      "userId": "guest",
+      "name": "Coffee #zj6w",
+      "amount": "1 kg",
+      "price": 83,
+      "currency": "UAH",
+      "bought": false,
+      "id": "EWvctnAaq2E"
+    },
+    {
+      "userId": "guest",
+      "name": "Tea #zj6w",
+      "amount": "6 pcs",
+      "price": 33,
+      "currency": "UAH",
+      "bought": false,
+      "id": "NjxoqVtgg4E"
+    },
+    {
+      "userId": "guest",
+      "name": "Bread #zj6w",
+      "amount": "1 loaf",
+      "price": 132,
+      "currency": "UAH",
+      "bought": false,
+      "id": "7ujIkpOpvm4"
+    },
+    {
+      "userId": "guest",
+      "name": "Sugar #zj6w",
+      "amount": "",
+      "price": 144,
+      "currency": "UAH",
+      "bought": false,
+      "id": "ZnrLM0ANZ3I"
+    },
+    {
+      "userId": "guest",
+      "name": "Salt #zj6w",
+      "amount": "2L",
+      "price": 64,
+      "currency": "USD",
+      "bought": false,
+      "id": "nj2-9--5Ds4"
+    },
+    {
+      "userId": "guest",
+      "name": "Olive Oil #zj6w",
+      "amount": "1 pack",
+      "price": 89,
+      "currency": "EUR",
+      "bought": false,
+      "id": "OZLi3myr84U"
+    },
+    {
+      "userId": "guest",
+      "name": "Eggs #zj6w",
+      "amount": "12 pcs",
+      "price": 116,
+      "currency": "UAH",
+      "bought": false,
+      "id": "X36o_2sZLLc"
+    },
+    {
+      "userId": "guest",
+      "name": "Butter #zj6w",
+      "amount": "200g",
+      "price": 23,
+      "currency": "USD",
+      "bought": false,
+      "id": "ONcexkgGAE8"
+    },
+    {
+      "userId": "guest",
+      "name": "Cheese #zj6w",
+      "amount": "500g",
+      "price": 150,
+      "currency": "EUR",
+      "bought": false,
+      "id": "yT0eATC_qFk"
+    },
+    {
+      "userId": "guest",
+      "name": "Apples #zj6w",
+      "amount": "1 kg",
+      "price": 165,
+      "currency": "UAH",
+      "bought": false,
+      "id": "rcEyTgHGoyA"
+    },
+    {
+      "userId": "guest",
+      "name": "Bananas #zj6w",
+      "amount": "6 pcs",
+      "price": 151,
+      "currency": "UAH",
+      "bought": false,
+      "id": "Oaf6wzGBEGw"
+    },
+    {
+      "userId": "guest",
+      "name": "Chicken #zj6w",
+      "amount": "",
+      "price": 209,
+      "currency": "UAH",
+      "bought": false,
+      "id": "lZolWr9BRYU"
+    },
+    {
+      "userId": "guest",
+      "name": "Rice #zj6w",
+      "amount": "2L",
+      "price": 108,
+      "currency": "USD",
+      "bought": false,
+      "id": "aiaTNRM-kio"
+    },
+    {
+      "userId": "guest",
+      "name": "Pasta #zj6w",
+      "amount": "1 pack",
+      "price": 76,
+      "currency": "EUR",
+      "bought": false,
+      "id": "cuFgfsYRH90"
+    },
+    {
+      "userId": "guest",
+      "name": "Tomatoes #zj6w",
+      "amount": "1L",
+      "price": 73,
+      "currency": "UAH",
+      "bought": false,
+      "id": "MSU3A7HO7j8"
+    },
+    {
+      "userId": "guest",
+      "name": "Onions #zj6w",
+      "amount": "1 loaf",
+      "price": 102,
+      "currency": "UAH",
+      "bought": false,
+      "id": "BH6Bf7nStmg"
+    },
+    {
+      "userId": "guest",
+      "name": "Garlic #zj6w",
+      "amount": "12 pcs",
+      "price": 78,
+      "currency": "UAH",
+      "bought": false,
+      "id": "kikQ5dFiMsI"
+    },
+    {
+      "userId": "guest",
+      "name": "Milk #zv7g",
+      "amount": "1L",
+      "price": 25,
+      "currency": "UAH",
+      "bought": false,
+      "id": "4bx-nXQrTG0"
+    },
+    {
+      "userId": "guest",
+      "name": "Bread #zv7g",
+      "amount": "1 loaf",
+      "price": 150,
+      "currency": "UAH",
+      "bought": false,
+      "id": "DLcmMtzF49A"
+    },
+    {
+      "userId": "guest",
+      "name": "Garlic #zv7g",
+      "amount": "12 pcs",
+      "price": 199,
+      "currency": "UAH",
+      "bought": false,
+      "id": "HaMQqU6YA7g"
+    },
+    {
+      "userId": "guest",
+      "name": "Yogurt #zv7g",
+      "amount": "200g",
+      "price": 178,
+      "currency": "USD",
+      "bought": false,
+      "id": "hFQfxAlaAyk"
+    },
+    {
+      "userId": "guest",
+      "name": "Orange Juice #zv7g",
+      "amount": "500g",
+      "price": 103,
+      "currency": "EUR",
+      "bought": false,
+      "id": "aFlTd3a2_qs"
+    },
+    {
+      "userId": "guest",
+      "name": "Coffee #zv7g",
+      "amount": "1 kg",
+      "price": 54,
+      "currency": "UAH",
+      "bought": false,
+      "id": "aLoK-c5RJlw"
+    },
+    {
+      "userId": "guest",
+      "name": "Tea #zv7g",
+      "amount": "6 pcs",
+      "price": 197,
+      "currency": "UAH",
+      "bought": false,
+      "id": "gC_1sjlWQeo"
+    },
+    {
+      "userId": "guest",
+      "name": "Sugar #zv7g",
+      "amount": "",
+      "price": 46,
+      "currency": "UAH",
+      "bought": false,
+      "id": "Xria1Ctx0NI"
+    },
+    {
+      "userId": "guest",
+      "name": "Salt #zv7g",
+      "amount": "2L",
+      "price": 173,
+      "currency": "USD",
+      "bought": false,
+      "id": "j9Txu64FqR4"
+    },
+    {
+      "userId": "guest",
+      "name": "Olive Oil #zv7g",
+      "amount": "1 pack",
+      "price": 77,
+      "currency": "EUR",
+      "bought": false,
+      "id": "4u_X_xAlb9U"
+    },
+    {
+      "userId": "guest",
+      "name": "Eggs #zv7g",
+      "amount": "12 pcs",
+      "price": 92,
+      "currency": "UAH",
+      "bought": false,
+      "id": "eoYRSbFmeZw"
+    },
+    {
+      "userId": "guest",
+      "name": "Butter #zv7g",
+      "amount": "200g",
+      "price": 54,
+      "currency": "USD",
+      "bought": false,
+      "id": "10y4UNgRkMg"
+    },
+    {
+      "userId": "guest",
+      "name": "Cheese #zv7g",
+      "amount": "500g",
+      "price": 72,
+      "currency": "EUR",
+      "bought": false,
+      "id": "VfUQBZsrVpU"
+    },
+    {
+      "userId": "guest",
+      "name": "Apples #zv7g",
+      "amount": "1 kg",
+      "price": 33,
+      "currency": "UAH",
+      "bought": false,
+      "id": "RLx_TwnO5OI"
+    },
+    {
+      "userId": "guest",
+      "name": "Bananas #zv7g",
+      "amount": "6 pcs",
+      "price": 143,
+      "currency": "UAH",
+      "bought": false,
+      "id": "RBJrCwXfkEk"
+    },
+    {
+      "userId": "guest",
+      "name": "Chicken #zv7g",
+      "amount": "",
+      "price": 101,
+      "currency": "UAH",
+      "bought": false,
+      "id": "Ko5wnKMwdw4"
+    },
+    {
+      "userId": "guest",
+      "name": "Rice #zv7g",
+      "amount": "2L",
+      "price": 171,
+      "currency": "USD",
+      "bought": false,
+      "id": "DYk0hnWTgdQ"
+    },
+    {
+      "userId": "guest",
+      "name": "Pasta #zv7g",
+      "amount": "1 pack",
+      "price": 83,
+      "currency": "EUR",
+      "bought": false,
+      "id": "rgnG6fws__E"
+    },
+    {
+      "userId": "guest",
+      "name": "Tomatoes #zv7g",
+      "amount": "1L",
+      "price": 150,
+      "currency": "UAH",
+      "bought": false,
+      "id": "immFyxjWhD8"
+    },
+    {
+      "userId": "guest",
+      "name": "Onions #zv7g",
+      "amount": "1 loaf",
+      "price": 60,
+      "currency": "UAH",
+      "bought": false,
+      "id": "peYKoHN8fjw"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "7Vu4Fr1NDx0"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "-OslhJVDubM"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "NKynzkzaI_o"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "MvCDwqMr9DI"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "4c2xyn3fGgo"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "fJG6mzUaL_4"
+    },
+    {
+      "name": "test",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "sNU0iNKOVns"
+    },
+    {
+      "name": "test",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "m29XHN9kb8Y"
+    },
+    {
+      "name": "test",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "Q8sIH-e3xtI"
+    },
+    {
+      "name": "huhyuuh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "ddvYOgxHpzA"
+    },
+    {
+      "name": "huhyuuh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "19xElEzvHT4"
+    },
+    {
+      "name": "huhyuuh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "2Zf576S7w68"
+    },
+    {
+      "name": "huhyuuh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "GcSBzr-bpB8"
+    },
+    {
+      "name": "hbhhv",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "NDuns__MnsQ"
+    },
+    {
+      "name": "bhbhbh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "KNaGmsOa7hU"
+    },
+    {
+      "name": "bhbhbh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "lYCSOyJckCY"
+    },
+    {
+      "name": "bhbhbh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "FojOntnSufo"
+    },
+    {
+      "name": "bhbhbh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "1zU9gYJ8Koo"
+    },
+    {
+      "name": "bhbhbh",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "aTHCU9Y9X6I"
+    },
+    {
+      "name": "gyugyugyu",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "XYancZDEmCk"
+    },
+    {
+      "name": "fyfty",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "nIGdo2icGso"
+    },
+    {
+      "name": "",
+      "amount": "",
+      "price": null,
+      "currency": "UAH",
+      "bought": false,
+      "userId": "guest",
+      "id": "qSdqV5YMYgU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

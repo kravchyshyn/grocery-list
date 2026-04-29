@@ -97,6 +97,7 @@ input[type="checkbox"]:focus-visible + .checkmark {
   transition:
     color 0.15s,
     text-decoration 0.15s;
+  cursor: pointer;
 }
 
 .chip {

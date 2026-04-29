@@ -8,8 +8,15 @@
     </label>
     <input id="name" type="text" formControlName="name" placeholder="e.g. Apples" autocomplete="off" />
     @if (nameInvalid) {
-      <span class="error">Name is required</span>
+      @if (form.get('name')?.errors?.['required']) {
+        <span class="error">Name is required</span>
+      }
+
+      @if (form.get('name')?.errors?.['nameEmpty']) {
+        <span class="error">Name cannot be empty or spaces only</span>
+      }
     }
+
   </div>
 
   <div class="fields-row">
@@ -43,7 +50,7 @@
 
   <div class="form-actions">
     <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-    <button type="submit" class="btn btn-primary">
+    <button [disabled]="isloading()" type="submit" class="btn btn-primary">
       {{ editItem() ? 'Save changes' : 'Add to list' }}
     </button>
   </div>

@@ -1,6 +1,7 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Currency, GroceryItem, ItemFormPayload } from '../../models/grocery-item.model';
+import { trimValidator } from '../../validators/trim.validator';
 
 @Component({
   selector: 'app-item-form',
@@ -10,6 +11,7 @@ import { Currency, GroceryItem, ItemFormPayload } from '../../models/grocery-ite
 })
 export class ItemFormComponent implements OnInit {
   editItem = input<GroceryItem | null>(null);
+  isloading = input(false);
   saved = output<ItemFormPayload>();
   cancelled = output<void>();
 
@@ -20,8 +22,9 @@ export class ItemFormComponent implements OnInit {
 
   ngOnInit() {
     const item = this.editItem();
+
     this.form = this.fb.group({
-      name: [item?.name ?? '', Validators.required],
+      name: [item?.name ?? '', [ trimValidator, Validators.required, Validators.minLength(2)]],
       amount: [item?.amount ?? ''],
       price: [item?.price ?? null, Validators.min(0)],
       currency: [item?.currency ?? 'UAH'],
